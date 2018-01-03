@@ -2,29 +2,29 @@ package org.opendatafoundation.data.spss;
 
 /*
  * Author(s): Pascal Heus (pheus@opendatafoundation.org)
+ *  
+ * This product has been developed with the financial and 
+ * technical support of the UK Data Archive Data Exchange Tools 
+ * project (http://www.data-archive.ac.uk/dext/) and the 
+ * Open Data Foundation (http://www.opendatafoundation.org) 
  * 
- * This product has been developed with the financial and
- * technical support of the UK Data Archive Data Exchange Tools
- * project (http://www.data-archive.ac.uk/dext/) and the
- * Open Data Foundation (http://www.opendatafoundation.org)
+ * Copyright 2007 University of Essex (http://www.esds.ac.uk) 
  * 
- * Copyright 2007 University of Essex (http://www.esds.ac.uk)
- * 
- * This program is free software; you can redistribute it and/or modify it
+ * This program is free software; you can redistribute it and/or modify it 
  * under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation; either version 2.1 of the License, or
+ * the Free Software Foundation; either version 2.1 of the License, or 
  * (at your option) any later version.
  * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * This program is distributed in the hope that it will be useful, 
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of 
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  * See the GNU Lesser General Public License for more details.
- * 
- * You should have received a copy of the GNU Lesser General Public
- * License along with this library; if not, write to the
- * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+ *  
+ * You should have received a copy of the GNU Lesser General Public 
+ * License along with this library; if not, write to the 
+ * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, 
  * Boston, MA  02110-1301  USA
- * The full text of the license is also available on the Internet at
+ * The full text of the license is also available on the Internet at 
  * http://www.gnu.org/copyleft/lesser.html
  * 
  */
@@ -49,17 +49,11 @@ public abstract class SPSSVariable {
 	public SPSSRecordType2 variableRecord; // < The SPSS type 2 record describing this variable
 	public SPSSRecordType3 valueLabelRecord; // < The optional SPSS type 3 record holding this variable value labels
 
-	static enum VariableType {
-		NUMERIC, STRING
-	}; // < The SPSS variable type enumeration
+	static enum VariableType {NUMERIC, STRING}; // < The SPSS variable type enumeration
 
-	VariableType type;
+	VariableType type; /** The type of variable */
 
-	/** The type of variable */
-
-	static enum DDI3RepresentationType {
-		TEXT, NUMERIC, DATETIME
-	}; // < The SPSS variable type enumeration
+	static enum DDI3RepresentationType {TEXT, NUMERIC, DATETIME}; // < The SPSS variable type enumeration
 
 	int variableNumber = 0; // < The variable number in the dataset (1-based index, 0 means not set)
 	String variableName = ""; // < The full variable name set from SPSSRecordType2 or SPSSRecordType7Subtype13
@@ -88,9 +82,7 @@ public abstract class SPSSVariable {
 
 	/**
 	 * Constructor
-	 * 
-	 * @param file
-	 *            the SPSSFile this variable belongs to
+	 * @param file the SPSSFile this variable belongs to
 	 */
 	public SPSSVariable(SPSSFile file) {
 		this.file = file;
@@ -107,15 +99,9 @@ public abstract class SPSSVariable {
 	public String getAlignmentLabel() {
 		String label = "";
 		switch (alignment) {
-		case 0:
-			label = "Left";
-			break;
-		case 1:
-			label = "Center";
-			break;
-		case 2:
-			label = "Right";
-			break;
+		case 0: label = "Left"; break;
+		case 1: label = "Center"; break;
+		case 2: label = "Right"; break;
 		}
 		return (label);
 	}
@@ -127,11 +113,8 @@ public abstract class SPSSVariable {
 
 	/**
 	 * Generates a DDI 2 <var> element for this variable based on the SPSS data format.
-	 * 
-	 * @param doc
-	 *            the document wrapping this element
-	 * @param offset
-	 *            the variable offset for starting position in the file
+	 * @param doc the document wrapping this element
+	 * @param offset the variable offset for starting position in the file
 	 * @return the genarated Element
 	 * @throws SPSSFileException
 	 */
@@ -142,12 +125,9 @@ public abstract class SPSSVariable {
 	/**
 	 * Generates a DDI 2 <var> element for this variable based on the specified data format.
 	 * 
-	 * @param doc
-	 *            the document wrapping this element
-	 * @param dataFormat
-	 *            the SPSSFile.DataFormat this DDI is being generated for
-	 * @param offset
-	 *            the variable offset for starting position in the file
+	 * @param doc the document wrapping this element
+	 * @param dataFormat the SPSSFile.DataFormat this DDI is being generated for
+	 * @param offset the variable offset for starting position in the file
 	 * 
 	 * @return the generated Element
 	 * @throws SPSSFileException
@@ -722,15 +702,9 @@ public abstract class SPSSVariable {
 	public String getMeasureLabel() {
 		String label = "";
 		switch (measure) {
-		case 1:
-			label = "Nominal";
-			break;
-		case 2:
-			label = "Ordinal";
-			break;
-		case 3:
-			label = "Scale";
-			break;
+		case 1: label = "Nominal"; break;
+		case 2: label = "Ordinal"; break;
+		case 3: label = "Scale"; break;
 		}
 		return (label);
 	}

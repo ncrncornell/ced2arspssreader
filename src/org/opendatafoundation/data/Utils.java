@@ -55,9 +55,9 @@ import org.w3c.dom.Node;
  */
 public class Utils {
 
+
 	/**
 	 * Converts an w3c.dom.Node into a String
-	 * 
 	 * @param node
 	 * @return The DOM as a String
 	 * @throws TransformerFactoryConfigurationError
@@ -74,7 +74,6 @@ public class Utils {
 
 	/**
 	 * Converts an w3c.dom.Node into a color syntax HTML
-	 * 
 	 * @param node
 	 * @return The HTML as a String
 	 * @throws TransformerException
@@ -91,7 +90,6 @@ public class Utils {
 
 	/**
 	 * Pads a string left with spaces
-	 * 
 	 * @param str
 	 * @return the padded string
 	 */
@@ -101,7 +99,6 @@ public class Utils {
 
 	/**
 	 * Pads a string left with specified character
-	 * 
 	 * @param str
 	 * @return the padded string
 	 */
@@ -109,11 +106,10 @@ public class Utils {
 		int padding = length - str.length();
 		if (padding > 0) {
 			char[] buf = new char[padding];
-			for (int i = 0; i < padding; i++)
-				buf[i] = ch;
+			for (int i = 0; i < padding; i++) buf[i] = ch;
 			return (new String(buf) + str);
-		} else
-			return (str);
+		}
+		else return (str);
 	}
 
 	/**
@@ -163,7 +159,6 @@ public class Utils {
 
 	/**
 	 * Adds id related attributes to DDI Identifiable element
-	 * 
 	 * @param e
 	 * @param id
 	 */
@@ -174,7 +169,6 @@ public class Utils {
 
 	/**
 	 * Adds id related attributes to DDI Maintainable element
-	 * 
 	 * @param e
 	 * @param id
 	 */
@@ -185,7 +179,6 @@ public class Utils {
 
 	/**
 	 * Adds id related attributes to DDI Versionable element
-	 * 
 	 * @param e
 	 * @param id
 	 */

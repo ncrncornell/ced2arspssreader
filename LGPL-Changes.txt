@@ -1,0 +1,488 @@
+LGPL Changes
+
+The original source of this project comes from:
+
+  * Author(s): Pascal Heus (pheus@opendatafoundation.org)
+  *
+  * This product has been developed with the financial and
+  * technical support of the UK Data Archive Data Exchange Tools
+  * project (http://www.data-archive.ac.uk/dext/) and the
+  * Open Data Foundation (http://www.opendatafoundation.org)
+  *
+  * Copyright 2007 University of Essex (http://www.esds.ac.uk)
+  *
+  * This program is free software; you can redistribute it and/or modify it
+  * under the terms of the GNU Lesser General Public License as published by
+  * the Free Software Foundation; either version 2.1 of the License, or
+  * (at your option) any later version.
+
+This project has been worked on by different Cornell developers over the years.  The previous
+develpers made changes to the following files:
+
+  ~/git/ced2arspssreader/src/org/opendatafoundation/data/spss/SPSSFile.java
+  ~/git/ced2arspssreader/src/org/opendatafoundation/data/spss/SPSSNumericVariable.java
+  ~/git/ced2arspssreader/src/org/opendatafoundation/data/spss/SPSSRecordType1.java
+  ~/git/ced2arspssreader/src/org/opendatafoundation/data/spss/SPSSRecordType2.java
+  ~/git/ced2arspssreader/src/org/opendatafoundation/data/spss/SPSSRecordType7Subtype3.java
+  ~/git/ced2arspssreader/src/org/opendatafoundation/data/spss/SPSSStringVariable.java
+  ~/git/ced2arspssreader/src/org/opendatafoundation/data/spss/SPSSUtils.java
+  ~/git/ced2arspssreader/src/org/opendatafoundation/data/spss/SPSSVariable.java
+  ~/git/ced2arspssreader/src/org/opendatafoundation/data/spss/SPSSVariableCategory.java
+  ~/git/ced2arspssreader/src/org/opendatafoundation/data/xml2html.xslt
+
+The rest of this file shows the changes between the
+  original source code (svn checkout http://svn.odaf.org/ddidext/org.opendatafoundation.data) and the
+  current Cornell github project (https://github.com/ncrncornell/ced2arspssreader).
+
+
+$     #===============================================================================
+$     sdiff -bBWs -w 180  --strip-trailing-cr ~/svn/odaf/org.opendatafoundation.data/src/org/opendatafoundation/data/spss/SPSSFile.java   ~/git/ced2arspssreader/src/org/opendatafoundation/data/spss/SPSSFile.java
+										      >	import java.nio.charset.Charset;
+    Boolean logFlag = true; //< Turn logging on/off 				      |		public Boolean logFlag = true; // < Turn logging on/off
+										      >		Charset charset = null;
+    	this.file = new File(name);						      |			file = new File(name);
+    	this.file = new File(name);						      |			file = new File(name);
+										      >		}
+										      >
+										      >		/**
+										      >		 * Constructor
+										      >		 *
+										      >		 * @param file
+										      >		 * @param charset
+										      >		 * @throws FileNotFoundException
+										      >		 */
+										      >		public SPSSFile(File file, Charset charset) throws FileNotFoundException {
+										      >			super(file, "r");
+										      >			this.file = file;
+										      >			this.charset = charset;
+										      >		/**
+										      >		 * Constructor
+										      >		 *
+										      >		 * @param file
+										      >		 * @param mode
+										      >		 * @param charset
+										      >		 * @throws FileNotFoundException
+										      >		 */
+										      >		public SPSSFile(File file, String mode, Charset charset) throws FileNotFoundE
+										      >			super(file, mode);
+										      >			this.file = file;
+										      >			this.charset = charset;
+										      >		}
+										      >
+										      >		/**
+										      >		 * Constructor
+										      >		 *
+										      >		 * @param name
+										      >		 * @param charset
+										      >		 * @throws FileNotFoundException
+										      >		 */
+										      >		public SPSSFile(String name, Charset charset) throws FileNotFoundException {
+										      >			super(name, "r");
+										      >			file = new File(name);
+										      >			this.charset = charset;
+										      >		}
+										      >
+										      >		/**
+										      >		 * Constructor
+										      >		 *
+										      >		 * @param name
+										      >		 * @param mode
+										      >		 * @param charset
+										      >		 * @throws FileNotFoundException
+										      >		 */
+										      >		public SPSSFile(String name, String mode, Charset charset) throws FileNotFoun
+										      >			super(name, "r");
+										      >			file = new File(name);
+										      >			this.charset = charset;
+										      >		}
+        if(nRecords <= 0 || nRecords > this.getRecordCount()) nRecords = this.getReco |			if (nRecords <= 0 || nRecords > getRecordCount())
+        log(this.getRecordFromDisk(dataFormat,true));				      |				nRecords = getRecordCount();
+										      >			log(getRecordFromDisk(dataFormat, true));
+            log(this.getRecordFromDisk(dataFormat,false));			      |				log(getRecordFromDisk(dataFormat, false));
+        if(this.infoRecord.numberOfCases > 0) {					      |			if (infoRecord.numberOfCases > 0) {
+            out.write(this.getRecordFromDisk(dataFormat,true)+"\n");		      |				out.write(getRecordFromDisk(dataFormat, true) + "\n");
+            for(int i=2 ; i<= this.getRecordCount(); i++) {			      |				for (int i = 2; i <= getRecordCount(); i++) {
+                out.write(this.getRecordFromDisk(dataFormat,false)+"\n");	      |					out.write(getRecordFromDisk(dataFormat, false) + "\n"
+        if(this.infoRecord!=null) {						      |			if (infoRecord != null) {
+            if(this.infoRecord.compressionSwitch==0) return(false);		      |				if (infoRecord.compressionSwitch == 0) return (false);
+            codeBook.setAttribute("ID", this.getUniqueID());			      |				codeBook.setAttribute("ID", getUniqueID());
+            elem.setTextContent(this.infoRecord.productIdentification.substring(5));  |				elem.setTextContent(infoRecord.productIdentification.substrin
+            elem.setTextContent(""+this.infoRecord.numberOfCases);		      |				elem.setTextContent("" + infoRecord.numberOfCases);
+            elem.setTextContent(""+this.variableMap.size());			      |				elem.setTextContent("" + variableMap.size());
+            elem.setTextContent(this.infoRecord.productIdentification.substring(5));  |				elem.setTextContent(infoRecord.productIdentification.substrin
+            									      <
+        return(this.getUniqueID()+"_"+this.logicalProductIDSuffix);		      |			return (getUniqueID() + "_" + logicalProductIDSuffix);
+        return(this.getUniqueID()+"_"+this.physicalDataProductIDSuffix+"_"+dataFormat |			return (getUniqueID() + "_" + physicalDataProductIDSuffix + "_" + dat
+        return(this.getUniqueID()+"_"+this.physicalInstanceIDSuffix+"_"+dataFormat.to |			return (getUniqueID() + "_" + physicalInstanceIDSuffix + "_" + dataFo
+        return(this.getUniqueID()+"_"+this.physicalStructureSchemeSuffix+"_"+dataForm |			return (getUniqueID() + "_" + physicalStructureSchemeSuffix + "_" + d
+        return(this.getUniqueID()+"_"+this.recordLayoutSchemeSuffix+"_"+dataFormat.to |			return (getUniqueID() + "_" + recordLayoutSchemeSuffix + "_" + dataFo
+        return(this.getUniqueID()+"_"+this.variableSchemeIDSuffix);		      |			return (getUniqueID() + "_" + variableSchemeIDSuffix);
+            Utils.setDDIIdentifiableId(dataRelationship,this.dataRelationshipID);     |				Utils.setDDIIdentifiableId(dataRelationship, dataRelationship
+            Utils.setDDIIdentifiableId(logicalRecord,this.logicalRecordID);	      |				Utils.setDDIIdentifiableId(logicalRecord, logicalRecordID);
+            elem.setTextContent(this.getDDI3DefaultVariableSchemeID());		      |				elem.setTextContent(getDDI3DefaultVariableSchemeID());
+            Utils.setDDIVersionableId(physicalStructure,this.physicalStructureID);    |				Utils.setDDIVersionableId(physicalStructure, physicalStructur
+            Utils.setDDIIdentifiableId(grossRecordStructure,this.grossRecordStructure |				Utils.setDDIIdentifiableId(grossRecordStructure, grossRecordS
+            elem.setTextContent(this.logicalRecordID);				      |				elem.setTextContent(logicalRecordID);
+            Utils.setDDIIdentifiableId(physicalRecordSegment,this.physicalRecordSegme |				Utils.setDDIIdentifiableId(physicalRecordSegment, physicalRec
+            									      <
+            elem.setTextContent(this.physicalStructureID);			      |				elem.setTextContent(physicalStructureID);
+            elem.setTextContent(this.physicalRecordSegmentID);			      |				elem.setTextContent(physicalRecordSegmentID);
+            Utils.setDDIIdentifiableId(dataFileIdentification,this.physicalInstanceFi |				Utils.setDDIIdentifiableId(dataFileIdentification, physicalIn
+            									      <
+            Utils.setDDIIdentifiableId(grossFile,this.grossFileID);		      |				Utils.setDDIIdentifiableId(grossFile, grossFileID);
+            elem.setTextContent(""+this.getRecordCount());			      |				elem.setTextContent("" + getRecordCount());
+            elem.setTextContent(""+this.getRecordCount());			      |				elem.setTextContent("" + getRecordCount());
+            									      <
+        if(obsNumber < 1 || obsNumber > this.getRecordCount()) {		      |			if (obsNumber < 1 || obsNumber > getRecordCount()) {
+            throw new SPSSFileException("Invalid record number ["+obsNumber+". Range  |				throw new SPSSFileException("Invalid record number [" + obsNu
+            this.seek(this.dataStartPosition);  				      |				seek(dataStartPosition);
+        return(this.infoRecord.numberOfCases);					      |			return (infoRecord.numberOfCases);
+    										      <
+        if(this.uniqueID==null) this.uniqueID = "ID_"+java.util.UUID.randomUUID().toS |			if (uniqueID == null)
+        return(this.uniqueID);							      |				uniqueID = "ID_" + java.util.UUID.randomUUID().toString();
+										      >			return (uniqueID);
+        return(this.variableMap.size());					      |			return (variableMap.size());
+        if(this.dataStartPosition < 1) {					      |			if (dataStartPosition < 1) {
+        this.seek(this.dataStartPosition);					      |			seek(dataStartPosition);
+        this.isDataLoaded = true;						      |			isDataLoaded = true;
+        if(this.isMetadataLoaded) throw new SPSSFileException("Metadata is already lo |			if (isMetadataLoaded)
+										      >				throw new SPSSFileException("Metadata is already loaded");
+        this.seek(0);								      |			seek(0);
+        this.infoRecord = new SPSSRecordType1();				      |			infoRecord = new SPSSRecordType1();
+        this.infoRecord.read(this);						      |			infoRecord.read(this);
+        this.variableMap = new LinkedHashMap<Integer,SPSSVariable>();		      |			variableMap = new LinkedHashMap<Integer, SPSSVariable>();
+                this.variableMap.put(count,var);				      |					variableMap.put(count, var);
+            filePointer = this.getFilePointer();				      |				filePointer = getFilePointer();
+            recordType = this.readSPSSInt();					      |				recordType = readSPSSInt();
+            this.seek(filePointer);						      |				seek(filePointer);
+        if(this.infoRecord.OBSperObservation==-1) {				      |			if (infoRecord.OBSperObservation == -1) {
+            this.infoRecord.OBSperObservation = count; 				      |				infoRecord.OBSperObservation = count;
+            filePointer = this.getFilePointer();				      |				filePointer = getFilePointer();
+            recordType = this.readSPSSInt();					      |				recordType = readSPSSInt();
+                    this.seek(filePointer);					      |					seek(filePointer);
+                        SPSSVariable var = this.variableMap.get( record4.variableInde |						SPSSVariable var = variableMap.get(record4.va
+                    this.seek(filePointer);					      |					seek(filePointer);
+                    subrecordType = this.readSPSSInt();				      |					subrecordType = readSPSSInt();
+                    this.seek(filePointer);					      |					seek(filePointer);
+                                if(var.variableRecord.variableTypeCode!=0 && var.vari |							// daxplore: variableTypeCode seems t
+										      >							// daxplore: disabled check to be abl
+										      >							if (/* var.variableRecord.variableTyp
+                                else {						      |							/*
+                                	//log(var.variableShortName+"!="+entry.getKey |							 * else { log(var.variableShortName+"
+                                }						      |							 */
+                    log("location "+this.getFilePointer());			      |					log("location " + getFilePointer());
+                    if(this.readSPSSInt()!=0) 					      |					if (readSPSSInt() != 0)
+                    this.dataStartPosition=this.getFilePointer();		      |					dataStartPosition = getFilePointer();
+        this.isMetadataLoaded=true;						      |			isMetadataLoaded = true;
+            if(this.logFile==null) System.out.println(msg);			      |				if (logFile == null) System.out.println(msg);
+        	for(int i=7; i>=0; i--) buffer[i]=this.readByte(); 		      |				for (int i = 7; i >= 0; i--) buffer[i] = readByte();
+        	for(int i=3; i>=0; i--) buffer[i]=this.readByte(); 		      |				for (int i = 3; i >= 0; i--) buffer[i] = readByte();
+										      >			if (charset != null) {
+										      >				s = new String(buffer, charset);
+										      >			} else {
+										      >			}
+        this.uniqueID = str;							      |			uniqueID = str;
+$     #===============================================================================
+$     sdiff -bBWs -w 180  --strip-trailing-cr ~/svn/odaf/org.opendatafoundation.data/src/org/opendatafoundation/data/spss/SPSSNumericVariable.java   ~/git/ced2arspssreader/src/org/opendatafoundation/data/spss/SPSSNumericVariable.java
+        switch(this.variableRecord.writeFormatType) {				      |			switch (variableRecord.writeFormatType) {
+        if(obsNumber < 0 || obsNumber > this.data.size()) {			      |			if (obsNumber < 0 || obsNumber > data.size()) {
+            throw new SPSSFileException("Invalid observation number ["+obsNumber+". R |				throw new SPSSFileException("Invalid observation number [" +
+        if(obsNumber == 0) val = this.value;					      |			if (obsNumber == 0)
+        else if(obsNumber > 0 && this.data.size()==0 )throw new SPSSFileException("No |				val = value;
+        else val = data.get(obsNumber-1);					      |			else if (obsNumber > 0 && data.size() == 0)
+										      >				throw new SPSSFileException("No data availble");
+										      >			else
+										      >				val = data.get(obsNumber - 1);
+                if(this.variableRecord.writeFormatType==5 && this.getDecimals()>0) {  |					if (variableRecord.writeFormatType == 5 && getDecimal
+                    }								      |						} else if (dotPosition <= getLength()) { // w
+                    else if(dotPosition <= getLength()) { // we can fit the non-decim <
+        }									      |			} else {
+        else {									      <
+    										      <
+            switch(this.variableRecord.writeFormatType) {			      |				switch (variableRecord.writeFormatType) {
+                strFormat += "%,."+this.getDecimals()+"f"; 			      |					strFormat += "%,." + getDecimals() + "f";
+                strFormat += "$%."+this.getDecimals()+"f"; 			      |					strFormat += "$%." + getDecimals() + "f";
+                strFormat += "%"+this.getLength()+"."+this.getDecimals()+"f"; 	      |					strFormat += "%" + this.getLength() + "." + getDecima
+                nDecimals = this.getDecimals();					      |					nDecimals = getDecimals();
+                if(nDecimals>0) nDecimals--; // remove one decimal for the sign	      |					if (nDecimals > 0)
+										      >						nDecimals--; // remove one decimal for the si
+                if(this.getLength()>=8)strFormat += ":%1$tS";			      |					if (this.getLength() >= 8)
+                if(this.getLength()==11) strFormat += ".%2$2d"; // we add the 2-digit |						strFormat += ":%1$tS";
+										      >					if (this.getLength() == 11)
+										      >						strFormat += ".%2$2d"; // we add the 2-digit
+                strFormat += "%,."+this.getDecimals()+"f"; 			      |					strFormat += "%,." + getDecimals() + "f";
+                strFormat += "%"+this.getLength()+"."+this.getDecimals()+"f"; 	      |					strFormat += "%" + this.getLength() + "." + getDecima
+                throw new SPSSFileException("Unknown write format type ["+this.variab |					throw new SPSSFileException("Unknown write format typ
+$     #===============================================================================
+$     sdiff -bBWs -w 180  --strip-trailing-cr ~/svn/odaf/org.opendatafoundation.data/src/org/opendatafoundation/data/spss/SPSSRecordType1.java   ~/git/ced2arspssreader/src/org/opendatafoundation/data/spss/SPSSRecordType1.java
+        if(recordTypeCode.compareTo("$FL2")!=0) throw new SPSSFileException("Read hea |			if (recordTypeCode.compareTo("$FL2") != 0)
+										      >				throw new SPSSFileException("Read header error: this is not a
+        									      <
+        /* 20080303-PH: Removed this check as received valid files with layout=3.     |			/*
+        if(layoutCode==3) {							      |			 * 20080303-PH: Removed this check as received valid files with layou
+        	throw new SPSSFileException("Read header: SPSS Portable files not sup <
+        }									      <
+        if(layoutCode!=2) {							      <
+        	throw new SPSSFileException("Read header error: invalid Layout Code [ <
+        }									      <
+$     #===============================================================================
+$     sdiff -bBWs -w 180  --strip-trailing-cr ~/svn/odaf/org.opendatafoundation.data/src/org/opendatafoundation/data/spss/SPSSRecordType2.java   ~/git/ced2arspssreader/src/org/opendatafoundation/data/spss/SPSSRecordType2.java
+    										      |		SPSSFile file;
+										      >
+										      >		/**
+										      >		 *
+										      >		 * @return write formt width
+										      >		 * Added this getter method so that utilities written outside this package ca
+										      >		 */
+										      >		public int getWriteFormatWidth() {
+										      >			return writeFormatWidth;
+										      >		}
+										      >
+										      >			file = is;
+        if(recordTypeCode!=2) throw new SPSSFileException("Error reading variable Rec |			if (recordTypeCode != 2)
+										      >				throw new SPSSFileException("Error reading variable Record: b
+        if(Math.abs(missingValueFormatCode)>3) throw new SPSSFileException("Error rea |			if (Math.abs(missingValueFormatCode) > 3)
+										      >				throw new SPSSFileException("Error reading variable Record: i
+        str += "\n- Type          : "+printFormatType + " ["+getFormatTypeCode(printF |			str += "\n- Type          : " + printFormatType + " [" + getFormatTyp
+										      >			;
+        str += "\n- Type          : "+writeFormatType + " ["+getFormatTypeCode(writeF |			str += "\n- Type          : " + writeFormatType + " [" + getFormatTyp
+										      >			;
+        if(this.missingValueFormatCode>0) {					      |			if (missingValueFormatCode > 0) {
+            for(int i=0; i < this.missingValueFormatCode ; i++) {		      |				for (int i = 0; i < missingValueFormatCode; i++) {
+                if(this.variableTypeCode==0) str += ""+SPSSUtils.byte8ToDouble(missin |					if (variableTypeCode == 0)
+                else str += SPSSUtils.byte8ToString(missingValue[i]);		      |						str += "" + SPSSUtils.byte8ToDouble(missingVa
+            }									      |					else
+										      >						str += (file.charset == null ? SPSSUtils.byte
+        else if(this.missingValueFormatCode <= -2) {				      |			} else if (missingValueFormatCode <= -2) {
+            if(this.variableTypeCode==0) str += ""+SPSSUtils.byte8ToDouble(missingVal |				if (variableTypeCode == 0)
+            else str += SPSSUtils.byte8ToString(missingValue[0]);		      |					str += "" + SPSSUtils.byte8ToDouble(missingValue[0]);
+										      >				else
+										      >					str += (file.charset == null ? SPSSUtils.byte8ToStrin
+            if(this.variableTypeCode==0) str += ""+SPSSUtils.byte8ToDouble(missingVal |				if (variableTypeCode == 0)
+            else str += SPSSUtils.byte8ToString(missingValue[1]);		      |					str += "" + SPSSUtils.byte8ToDouble(missingValue[1]);
+            if(this.missingValueFormatCode==-3) {				      |				else
+										      >					str += (file.charset == null ? SPSSUtils.byte8ToStrin
+										      >				if (missingValueFormatCode == -3) {
+                if(this.variableTypeCode==0) str += ""+SPSSUtils.byte8ToDouble(missin |					if (variableTypeCode == 0)
+                else str += SPSSUtils.byte8ToString(missingValue[2]);		      |						str += "" + SPSSUtils.byte8ToDouble(missingVa
+										      >					else
+										      >						str += (file.charset == null ? SPSSUtils.byte
+$     #===============================================================================
+$     sdiff -bBWs -w 180  --strip-trailing-cr ~/svn/odaf/org.opendatafoundation.data/src/org/opendatafoundation/data/spss/SPSSRecordType7Subtype3.java   ~/git/ced2arspssreader/src/org/opendatafoundation/data/spss/SPSSRecordType7Subtype3.java
+        str += "\nEndianness      : "+endianness+" ["+getEndiannessLabel()+"]";;      |			str += "\nEndianness      : " + endianness + " [" + getEndiannessLabe
+        str += "\nCharacter set   : "+characterRepresentation+" ["+getCharacterRepres |			;
+										      >			str += "\nCharacter set   : " + characterRepresentation + " [" + getC
+										      >			;
+$     #===============================================================================
+$     sdiff -bBWs -w 180  --strip-trailing-cr ~/svn/odaf/org.opendatafoundation.data/src/org/opendatafoundation/data/spss/SPSSStringVariable.java   ~/git/ced2arspssreader/src/org/opendatafoundation/data/spss/SPSSStringVariable.java
+        String strValue = SPSSUtils.byte8ToString(byteValue);			      |			String strValue;
+										      >			if (file.charset == null) {
+										      >				strValue = SPSSUtils.byte8ToString(byteValue);
+										      >			} else {
+										      >				strValue = SPSSUtils.byte8ToString(byteValue, file.charset);
+										      >			}
+										      >
+        String strValue = SPSSUtils.byte8ToString(byteValue);			      |			String strValue;
+										      >			if (file.charset == null) {
+										      >				strValue = SPSSUtils.byte8ToString(byteValue);
+										      >			} else {
+										      >				strValue = SPSSUtils.byte8ToString(byteValue, file.charset);
+										      >			}
+        return("A"+this.variableRecord.writeFormatWidth);			      |			return ("A" + variableRecord.writeFormatWidth);
+										      >		 *
+        if(obsNumber < 0 || obsNumber > this.data.size()) {			      |			if (obsNumber < 0 || obsNumber > data.size()) {
+            throw new SPSSFileException("Invalid observation number ["+obsNumber+". R |				throw new SPSSFileException("Invalid observation number [" +
+        if(obsNumber == 0) strValue = this.value;				      |			if (obsNumber == 0)
+        else if(obsNumber > 0 && this.data.size()==0 )throw new SPSSFileException("No |				strValue = value;
+        else strValue=data.get(obsNumber-1);					      |			else if (obsNumber > 0 && data.size() == 0)
+										      >				throw new SPSSFileException("No data availble");
+										      >			else
+										      >				strValue = data.get(obsNumber - 1);
+            }									      |				} else if (dataFormat.asciiFormat == FileFormatInfo.ASCIIForm
+            else if(dataFormat.asciiFormat==FileFormatInfo.ASCIIFormat.CSV) { 	      <
+$     #===============================================================================
+$     sdiff -bBWs -w 180  --strip-trailing-cr ~/svn/odaf/org.opendatafoundation.data/src/org/opendatafoundation/data/spss/SPSSUtils.java   ~/git/ced2arspssreader/src/org/opendatafoundation/data/spss/SPSSUtils.java
+										      >	import java.nio.charset.Charset;
+        long lvalue = ( 							      |			long lvalue = (((long) (buffer[7]) << 56) + ((long) (buffer[6] & 0xFF
+                ((long)(buffer[7])       << 56)  +				      <
+                ((long)(buffer[6]&0xFF)  << 48)  +				      <
+                ((long)(buffer[5]&0xFF)  << 40)  +				      <
+                ((long)(buffer[4]&0xFF)  << 32)  +				      <
+                ((long)(buffer[3]&0xFF)  << 24)  +				      <
+                ((long)(buffer[2]&0xFF)  << 16)  +				      <
+                ((long)(buffer[1]&0xFF)  << 8)   +				      <
+                 (long)(buffer[0]&0xFF));					      <
+        String str = new String(buffer).replaceAll("\\s+$", "");		      |			String str;
+										      >			str = new String(buffer).replaceAll("\\s+$", "");
+										      >			return (str);
+										      >		}
+										      >
+										      >		/**
+										      >		 * Converts a 8-byte value into a String with a specific encoding
+										      >		 *
+										      >		 * @param buffer
+										      >		 * @param charset
+										      >		 * @return converted value as String
+										      >		 */
+										      >		public static String byte8ToString(byte[] buffer, Charset charset) {
+										      >			String str;
+										      >			str = new String(buffer, charset).replaceAll("\\s+$", "");
+     */public static int byte4ToInt(byte[] buffer) {				      |		 */
+										      >		public static int byte4ToInt(byte[] buffer) {
+     * Converts a numeric value representing a date/time in SPSS into a Java Gregoria |		 * Converts a numeric value representing a date/time in SPSS into a Java Greg
+     * Date/time in SPSS are stored as the number of seconds elapsed since midnight   <
+     * on October 14th 1582 (start of the Gergorian calendar)			      <
+$     #===============================================================================
+$     sdiff -bBWs -w 180  --strip-trailing-cr ~/svn/odaf/org.opendatafoundation.data/src/org/opendatafoundation/data/spss/SPSSVariable.java   ~/git/ced2arspssreader/src/org/opendatafoundation/data/spss/SPSSVariable.java
+										      >
+										      >
+										      >
+										      >		/**
+										      >		 *
+										      >		 * @return
+										      >		 * Added this getter method so that utilities written outside this package ca
+										      >		 */
+										      >
+										      >		public int getVariableNumber() {
+										      >			return variableNumber;
+										      >		}
+										      >
+    	switch(this.alignment) {						      |			switch (alignment) {
+        if(this.getDecimals()>0) var.setAttribute("dcml", ""+this.getDecimals());     |			if (getDecimals() > 0)
+										      >				var.setAttribute("dcml", "" + getDecimals());
+        if(this.type==VariableType.NUMERIC) {					      |			if (type == VariableType.NUMERIC) {
+            switch(this.measure) {						      |				switch (measure) {
+        var.setAttribute("name", this.getName());				      |			var.setAttribute("name", getName());
+        elem.setTextContent(this.getLabel());					      |			elem.setTextContent(getLabel());
+        if(!this.categoryMap.isEmpty()) {					      |			if (!categoryMap.isEmpty()) {
+                if(cat.isMissing) catgry.setAttribute("missing","Y");		      |					if (cat.isMissing)
+										      >						catgry.setAttribute("missing", "Y");
+        									      <
+        if(this.type==VariableType.NUMERIC) elem.setAttribute("type","numeric");      |			if (type == VariableType.NUMERIC)
+        else elem.setAttribute("type","character");				      |				elem.setAttribute("type", "numeric");
+										      >			else
+										      >				elem.setAttribute("type", "character");
+        return(file.getUniqueID()+"_"+file.categorySchemeIDSuffix+"_V"+this.variableN |			return (file.getUniqueID() + "_" + file.categorySchemeIDSuffix + "_V"
+        return(file.getUniqueID()+"_"+file.codeSchemeIDSuffix+"_V"+this.variableNumbe |			return (file.getUniqueID() + "_" + file.codeSchemeIDSuffix + "_V" + v
+        if(!this.categoryMap.isEmpty()) {					      |			if (!categoryMap.isEmpty()) {
+            if(categorySchemeID==null) categorySchemeID = getDDI3DefaultCategorySchem |				if (categorySchemeID == null)
+										      >					categorySchemeID = getDDI3DefaultCategorySchemeID();
+                }								      |					} else {
+                else {								      <
+                    if(cat.isMissing) category.setAttribute("missing","true");	      |						if (cat.isMissing)
+										      >							category.setAttribute("missing", "tru
+    										      <
+        if(!this.categoryMap.isEmpty()) {					      |			if (!categoryMap.isEmpty()) {
+            if(categorySchemeID==null) categorySchemeID = getDDI3DefaultCategorySchem |				if (categorySchemeID == null)
+            if(codeSchemeID==null) codeSchemeID = getDDI3DefaultCodeSchemeID();	      |					categorySchemeID = getDDI3DefaultCategorySchemeID();
+										      >				if (codeSchemeID == null)
+										      >					codeSchemeID = getDDI3DefaultCodeSchemeID();
+                }								      |					} else {
+                else {								      <
+                if(this.type==VariableType.NUMERIC) {				      |					 * if(this.type==VariableType.NUMERIC) { // convert k
+                    // convert key into a numeric value and then into a trimmed strin <
+                    double value = SPSSUtils.byte8ToDouble(key);		      <
+                    elem.setTextContent(((SPSSNumericVariable) this).valueToString(va <
+                }								      <
+                else {								      <
+                    // convert value-key to string				      <
+                    elem.setTextContent(new String(key));			      <
+                }								      <
+        elem.setTextContent(file.variableIDPrefix+this.variableNumber);		      |			elem.setTextContent(file.variableIDPrefix + variableNumber);
+        elem.setTextContent(this.getSPSSFormat());				      |			elem.setTextContent(getSPSSFormat());
+        if(this.getDecimals()>0) {						      |			if (getDecimals() > 0) {
+            elem.setTextContent(""+this.getDecimals());				      |				elem.setTextContent("" + getDecimals());
+        elem.setTextContent(file.variableIDPrefix+this.variableNumber);		      |			elem.setTextContent(file.variableIDPrefix + variableNumber);
+        elem.setTextContent(this.getSPSSFormat());				      |			elem.setTextContent(getSPSSFormat());
+        elem.setTextContent(""+this.variableRecord.writeFormatWidth);		      |			elem.setTextContent("" + variableRecord.writeFormatWidth);
+        elem.setTextContent(""+this.getDecimals());				      |			elem.setTextContent("" + getDecimals());
+	             if(variableRecord.variableTypeCode==0) elem.setTextContent(""+SP |					if (variableRecord.variableTypeCode == 0)
+	             else elem.setTextContent(SPSSUtils.byte8ToString(variableRecord. |						elem.setTextContent("" + SPSSUtils.byte8ToDou
+										      >					else {
+										      >						String tc;
+										      >						if (file.charset == null) {
+										      >							tc = SPSSUtils.byte8ToString(variable
+										      >						} else {
+										      >							tc = SPSSUtils.byte8ToString(variable
+										      >						}
+										      >						elem.setTextContent(tc);
+        if(this.displayWidth != -1) {						      |			}
+										      >			if (displayWidth != -1) {
+            elem.setTextContent(""+this.displayWidth);				      |				elem.setTextContent("" + displayWidth);
+        if(this.alignment != -1) {						      |			if (alignment != -1) {
+            elem.setTextContent(""+this.getAlignmentLabel());			      |				elem.setTextContent("" + getAlignmentLabel());
+        if(this.measure != -1) {						      |			if (measure != -1) {
+            elem.setTextContent(""+this.getMeasureLabel());			      |				elem.setTextContent("" + getMeasureLabel());
+        Utils.setDDIVersionableId(var,file.variableIDPrefix+this.variableNumber);     |			Utils.setDDIVersionableId(var, file.variableIDPrefix + variableNumber
+        elem.setTextContent(this.getName());					      |			elem.setTextContent(getName());
+        elem.setTextContent(this.getLabel());					      |			elem.setTextContent(getLabel());
+        elem.setTextContent(this.getShortName());				      |			elem.setTextContent(getShortName());
+                if(codeSchemeReferenceID==null) codeSchemeReferenceID = getDDI3Defaul |					if (codeSchemeReferenceID == null)
+										      >						codeSchemeReferenceID = getDDI3DefaultCodeSch
+            }									      |				} else {
+            else {								      <
+	                if(dataType!=null) elem.setAttribute("type", dataType);	      |						if (dataType != null)
+	                elem.setAttribute("decimalPositions",""+this.getDecimals());  |							elem.setAttribute("type", dataType);
+										      >						elem.setAttribute("decimalPositions", "" + ge
+	                if(dataType!=null) elem.setAttribute("type", dataType);	      |						if (dataType != null)
+	                elem.setAttribute("format", this.getSPSSFormat());	      |							elem.setAttribute("type", dataType);
+										      >						elem.setAttribute("format", getSPSSFormat());
+        switch(this.variableRecord.writeFormatType) {				      |			switch (variableRecord.writeFormatType) {
+        switch(this.variableRecord.writeFormatType) {				      |			switch (variableRecord.writeFormatType) {
+            typeStr="String"; break;						      |				typeStr = "String";
+										      >				break;
+            if(this.getDecimals()>0) typeStr="Decimal";				      |				if (getDecimals() > 0)
+            else typeStr="BigInteger"; // TODO: check length and return smaller types |					typeStr = "Decimal";
+										      >				else
+										      >					typeStr = "BigInteger"; // TODO: check length and ret
+        return(this.variableRecord.writeFormatDecimals); 			      |			return (variableRecord.writeFormatDecimals);
+     * Retrieves the SPSS write format width.					      |		 * Retrieves the SPSS write format width. This is the same as the getWidth me
+     * This is the same as the getWidth method					      <
+        return(this.variableRecord.writeFormatWidth); 				      |			return (variableRecord.writeFormatWidth);
+    	switch(this.measure) {							      |			switch (measure) {
+        return(this.variableName);						      |			return (variableName);
+    										      <
+        return(this.variableName);						      |			return (variableShortName);
+        return(!this.categoryMap.isEmpty());					      |			return (!categoryMap.isEmpty());
+        if(this.valueLabelRecord==null) return(false);				      |			if (valueLabelRecord == null)
+        else return(true);							      |				return (false);
+										      >			else
+										      >				return (true);
+        if(this.variableRecord.missingValueFormatCode>0) {			      |			if (variableRecord.missingValueFormatCode > 0) {
+            for(int i=0; i < this.variableRecord.missingValueFormatCode ; i++) {      |				for (int i = 0; i < variableRecord.missingValueFormatCode; i+
+                if(value==SPSSUtils.byte8ToDouble(this.variableRecord.missingValue[i] |					if (value == SPSSUtils.byte8ToDouble(variableRecord.m
+        }									      |			} else if (variableRecord.missingValueFormatCode <= -2) {
+        else if(this.variableRecord.missingValueFormatCode <= -2) {		      <
+            if(value >= SPSSUtils.byte8ToDouble(this.variableRecord.missingValue[0])  |				if (value >= SPSSUtils.byte8ToDouble(variableRecord.missingVa
+            else if(this.variableRecord.missingValueFormatCode==-3) {		      |					rc = true;
+										      >				else if (variableRecord.missingValueFormatCode == -3) {
+                if(value==SPSSUtils.byte8ToDouble(this.variableRecord.missingValue[2] |					if (value == SPSSUtils.byte8ToDouble(variableRecord.m
+										      >						rc = true;
+        if(this.variableRecord.missingValueFormatCode>0) {			      |			if (variableRecord.missingValueFormatCode > 0) {
+            for(int i=0; i < this.variableRecord.missingValueFormatCode ; i++) {      |				for (int i = 0; i < variableRecord.missingValueFormatCode; i+
+                if(str.compareToIgnoreCase(SPSSUtils.byte8ToString(this.variableRecor |					String strcmp;
+										      >					if (file.charset == null) {
+										      >						strcmp = SPSSUtils.byte8ToString(variableReco
+										      >					} else {
+										      >						strcmp = SPSSUtils.byte8ToString(variableReco
+										      >					}
+										      >					if (str.compareToIgnoreCase(strcmp) == 0) {
+$     #===============================================================================
+$     sdiff -bBWs -w 180  --strip-trailing-cr ~/svn/odaf/org.opendatafoundation.data/src/org/opendatafoundation/data/spss/SPSSVariableCategory.java   ~/git/ced2arspssreader/src/org/opendatafoundation/data/spss/SPSSVariableCategory.java
+										      >
+										      >
+										      >
+										      >		/**
+										      >		 *
+										      >		 * @return
+										      >		 * Added this getter method so that utilities written outside this package ca
+										      >		 */
+										      >		public boolean isMissing() {
+										      >			return isMissing;
+										      >		}
+										      >
+										      >
+$     #===============================================================================
+$     sdiff -bBWs -w 180  --strip-trailing-cr ~/svn/odaf/org.opendatafoundation.data/src/org/opendatafoundation/data/xml2html.xslt   ~/git/ced2arspssreader/src/org/opendatafoundation/data/xml2html.xslt
+	xmlns:xsl="http://www.w3.org/1999/XSL/Transform"			      |		xmlns:xsl="http://www.w3.org/TR/xslt"
+$     #===============================================================================

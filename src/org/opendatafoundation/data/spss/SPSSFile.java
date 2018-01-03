@@ -134,7 +134,6 @@ public class SPSSFile extends RandomAccessFile {
 
 	/**
 	 * Constructor
-	 * 
 	 * @param file
 	 * @throws FileNotFoundException
 	 */
@@ -145,7 +144,6 @@ public class SPSSFile extends RandomAccessFile {
 
 	/**
 	 * Constructor
-	 * 
 	 * @param file
 	 * @param mode
 	 * @throws FileNotFoundException
@@ -157,7 +155,6 @@ public class SPSSFile extends RandomAccessFile {
 
 	/**
 	 * Constructor
-	 * 
 	 * @param name
 	 * @throws FileNotFoundException
 	 */
@@ -245,8 +242,7 @@ public class SPSSFile extends RandomAccessFile {
 	/**
 	 * Dumps the file data to the console (for debugging purposes)
 	 * 
-	 * @param nRecords
-	 *            the number of records to dump (0 for all)
+	 * @param nRecords the number of records to dump (0 for all)
 	 * @throws IOException
 	 * @throws SPSSFileException
 	 */
@@ -257,8 +253,7 @@ public class SPSSFile extends RandomAccessFile {
 	/**
 	 * Dumps the file data (for debugging purposes)
 	 * 
-	 * @param nRecords
-	 *            the number of records to dump (0 for all)
+	 * @param nRecords the number of records to dump (0 for all)
 	 * @param dataFormat
 	 * @throws IOException
 	 * @throws SPSSFileException
@@ -309,18 +304,12 @@ public class SPSSFile extends RandomAccessFile {
 			// log(var.valueLabelSet.toString());
 		}
 		// INFO
-		if (documentationRecord != null)
-			log(documentationRecord.toString());
-		if (integerInformationRecord != null)
-			log(integerInformationRecord.toString());
-		if (floatInformationRecord != null)
-			log(floatInformationRecord.toString());
-		if (variableSetsInformationRecord != null)
-			log(variableSetsInformationRecord.toString());
-		if (variableDisplayParamsRecord != null)
-			log(variableDisplayParamsRecord.toString());
-		if (longVariableNamesRecord != null)
-			log(longVariableNamesRecord.toString());
+		if (documentationRecord != null) log(documentationRecord.toString());
+		if (integerInformationRecord != null) log(integerInformationRecord.toString());
+		if (floatInformationRecord != null) log(floatInformationRecord.toString());
+		if (variableSetsInformationRecord != null) log(variableSetsInformationRecord.toString());
+		if (variableDisplayParamsRecord != null) log(variableDisplayParamsRecord.toString());
+		if (longVariableNamesRecord != null) log(longVariableNamesRecord.toString());
 	}
 
 	/**
@@ -349,17 +338,17 @@ public class SPSSFile extends RandomAccessFile {
 		// 20070915-PH: added test for empty files
 		if (infoRecord.numberOfCases > 0) {
 			// write header for delimited/CSV ASCII
-			if (dataFormat.format == FileFormatInfo.Format.ASCII && (dataFormat.asciiFormat == FileFormatInfo.ASCIIFormat.DELIMITED || dataFormat.asciiFormat == FileFormatInfo.ASCIIFormat.CSV) && dataFormat.namesOnFirstLine) {
+			if (dataFormat.format == FileFormatInfo.Format.ASCII 
+						&& (dataFormat.asciiFormat == FileFormatInfo.ASCIIFormat.DELIMITED || dataFormat.asciiFormat == FileFormatInfo.ASCIIFormat.CSV)
+						&& dataFormat.namesOnFirstLine) {
 				String recordStr = "";
 				Iterator varIterator = variableMap.keySet().iterator();
 				int n = 1;
 				while (varIterator.hasNext()) {
 					SPSSVariable var = variableMap.get(varIterator.next());
 					if (n > 1) {
-						if (dataFormat.asciiFormat == FileFormatInfo.ASCIIFormat.CSV)
-							recordStr += ",";
-						else
-							recordStr += dataFormat.asciiDelimiter;
+						if (dataFormat.asciiFormat == FileFormatInfo.ASCIIFormat.CSV) recordStr += ",";
+						else recordStr += dataFormat.asciiDelimiter;
 					}
 					recordStr += var.getName();
 					n++;
@@ -372,7 +361,8 @@ public class SPSSFile extends RandomAccessFile {
 			for (int i = 2; i <= getRecordCount(); i++) {
 				out.write(getRecordFromDisk(dataFormat, false) + "\n");
 			}
-		} else {
+		}
+		else {
 			log("WARNING: files does not contain any data");
 		}
 
@@ -386,17 +376,14 @@ public class SPSSFile extends RandomAccessFile {
 
 	/**
 	 * Determines if the data section of the file is compressed
-	 * 
 	 * @throws SPSSFileException
 	 */
 	public boolean isCompressed() throws SPSSFileException {
 		if (infoRecord != null) {
-			if (infoRecord.compressionSwitch == 0)
-				return (false);
-			else
-				return (true);
-		} else
-			throw new SPSSFileException("SPSS file not initialized");
+			if (infoRecord.compressionSwitch == 0) return (false);
+			else return (true);
+		}
+		else throw new SPSSFileException("SPSS file not initialized");
 
 	}
 
@@ -494,6 +481,7 @@ public class SPSSFile extends RandomAccessFile {
 		return (doc);
 	}
 
+
 	/**
 	 * Returns a default Physical Data Product identifier based on the file unique identifier.
 	 * 
@@ -562,8 +550,7 @@ public class SPSSFile extends RandomAccessFile {
 	/**
 	 * Creates a DDI 3.0 Logical Product XML Module for this file.
 	 * 
-	 * @param uniqueID
-	 *            a String value for the r:ID element. If null, a unique ID will be generated automatically based on the java.util.UUID class
+	 * @param uniqueID a String value for the r:ID element. If null, a unique ID will be generated automatically based on the java.util.UUID class
 	 * @return a org.w3c.dom.Document containing the generated Logical Data Product
 	 * @throws SPSSFileException
 	 */
@@ -574,8 +561,7 @@ public class SPSSFile extends RandomAccessFile {
 	/**
 	 * Creates a DDI 3.0 LogiclaProduct XML Document for this file.
 	 * 
-	 * @param uniqueID
-	 *            a String value for the r:ID element. If null, a unique ID will be generated automatically based on the java.util.UUID class
+	 * @param uniqueID a String value for the r:ID element. If null, a unique ID will be generated automatically based on the java.util.UUID class
 	 * @param identifyingAgency
 	 * @return a org.w3c.dom.Document containing the generated Logical Data Product
 	 * @throws SPSSFileException
@@ -657,8 +643,7 @@ public class SPSSFile extends RandomAccessFile {
 	 * Creates a DDI 3.0 PhysicalDataProduct XML Document for this file based on the specified file format.
 	 * 
 	 * @param dataFormat
-	 * @param logicalProductID
-	 *            the r:ID of the Logical Product this is refering to
+	 * @param logicalProductID the r:ID of the Logical Product this is refering to
 	 * @return a org.w3c.dom.Document containing the generated Physical Data Product
 	 * @throws SPSSFileException
 	 */
@@ -670,10 +655,8 @@ public class SPSSFile extends RandomAccessFile {
 	 * Creates a DDI 3.0 PhysicalDataProduct XML Document for this file based on the specified file format.
 	 * 
 	 * @param dataFormat
-	 * @param logicalProductID
-	 *            the r:ID of the Logical Product this is referring to
-	 * @param uniqueID
-	 *            a String value for the r:ID element. If null, a unique ID will be generated automatically based on the java.util.UUID class
+	 * @param logicalProductID the r:ID of the Logical Product this is referring to
+	 * @param uniqueID a String value for the r:ID element. If null, a unique ID will be generated automatically based on the java.util.UUID class
 	 * @return a org.w3c.dom.Document containing the generated Physical Data Product
 	 * @throws SPSSFileException
 	 */
@@ -685,10 +668,8 @@ public class SPSSFile extends RandomAccessFile {
 	 * Creates a DDI 3.0 PhysicalDataProduct XML Document for this file based on the specified file format.
 	 * 
 	 * @param dataFormat
-	 * @param logicalProductID
-	 *            the r:ID of the Logical Product this is referring to
-	 * @param uniqueID
-	 *            a String value for the r:ID element. If null, a unique ID will be generated automatically based on the java.util.UUID class
+	 * @param logicalProductID the r:ID of the Logical Product this is referring to
+	 * @param uniqueID a String value for the r:ID element. If null, a unique ID will be generated automatically based on the java.util.UUID class
 	 * @param identifyingAgency
 	 * @return a org.w3c.dom.Document containing the generated Physical Data Product
 	 * @throws SPSSFileException
@@ -706,8 +687,7 @@ public class SPSSFile extends RandomAccessFile {
 			doc = domBuilder.newDocument();
 
 			Element physicalProduct = (Element) doc.appendChild(doc.createElementNS(DDI3_PHYSICAL_PRODUCT_NAMESPACE, "PhysicalDataProduct"));
-			if (uniqueID == null)
-				uniqueID = getDDI3DefaultPhysicalDataProductID(dataFormat);
+			if (uniqueID == null) uniqueID = getDDI3DefaultPhysicalDataProductID(dataFormat);
 			Utils.setDDIMaintainableId(physicalProduct, uniqueID);
 
 			// Physical structure scheme
@@ -721,8 +701,7 @@ public class SPSSFile extends RandomAccessFile {
 			// logical product reference
 			Element logicalReference = (Element) physicalStructure.appendChild(doc.createElementNS(DDI3_PHYSICAL_PRODUCT_NAMESPACE, "LogicalProductReference"));
 			elem = (Element) logicalReference.appendChild(doc.createElementNS(SPSSFile.DDI3_REUSABLE_NAMESPACE, "ID"));
-			if (logicalProductID == null)
-				logicalProductID = getDDI3DefaultLogicalProductID();
+			if (logicalProductID == null) logicalProductID = getDDI3DefaultLogicalProductID();
 			elem.setTextContent(logicalProductID);
 
 			// format
@@ -759,10 +738,8 @@ public class SPSSFile extends RandomAccessFile {
 
 			// Record Layout
 			Element recordLayout;
-			if (dataFormat.format == FileFormatInfo.Format.ASCII)
-				recordLayout = (Element) recordLayoutSheme.appendChild(doc.createElementNS(DDI3_PHYSICAL_PRODUCT_NAMESPACE, "RecordLayout"));
-			else
-				recordLayout = (Element) recordLayoutSheme.appendChild(doc.createElementNS(DDI3_PROPRIETARY_RECORD_NAMESPACE, "ProprietaryRecordLayout"));
+			if (dataFormat.format == FileFormatInfo.Format.ASCII) recordLayout = (Element) recordLayoutSheme.appendChild(doc.createElementNS(DDI3_PHYSICAL_PRODUCT_NAMESPACE, "RecordLayout"));
+			else recordLayout = (Element) recordLayoutSheme.appendChild(doc.createElementNS(DDI3_PROPRIETARY_RECORD_NAMESPACE, "ProprietaryRecordLayout"));
 
 			// Record Layout (Common)
 			Utils.setDDIIdentifiableId(recordLayout, dataFormat.toString());
@@ -794,12 +771,11 @@ public class SPSSFile extends RandomAccessFile {
 				while (varIterator.hasNext()) {
 					SPSSVariable var = variableMap.get(varIterator.next());
 					recordLayout.appendChild(var.getDDI3DataItem(doc, dataFormat, offset));
-					if (dataFormat.asciiFormat == FileFormatInfo.ASCIIFormat.FIXED)
-						offset += var.getLength(dataFormat);
-					else
-						offset++;
+					if (dataFormat.asciiFormat == FileFormatInfo.ASCIIFormat.FIXED) offset += var.getLength(dataFormat);
+					else offset++;
 				}
-			} else {
+			}
+			else {
 				// SPSS Proprietary Format
 				// Software
 				Element software = (Element) recordLayout.appendChild(doc.createElementNS(DDI3_REUSABLE_NAMESPACE, "Software"));
@@ -807,8 +783,7 @@ public class SPSSFile extends RandomAccessFile {
 				elem.setTextContent(dataFormat.toString());
 				if (integerInformationRecord != null) {
 					String version = integerInformationRecord.releaseMajor + "." + integerInformationRecord.releaseMinor;
-					if (integerInformationRecord.releaseSpecial > 0)
-						version += "." + integerInformationRecord.releaseSpecial;
+					if (integerInformationRecord.releaseSpecial > 0) version += "." + integerInformationRecord.releaseSpecial;
 					elem = (Element) software.appendChild(doc.createElementNS(SPSSFile.DDI3_REUSABLE_NAMESPACE, "Version"));
 					elem.setTextContent(version);
 				}
@@ -892,8 +867,7 @@ public class SPSSFile extends RandomAccessFile {
 	 * 
 	 * @param uri
 	 * @param dataFormat
-	 * @param recordLayoutSchemeID
-	 *            the Record Layout Scheme Data Product this instance refers to
+	 * @param recordLayoutSchemeID the Record Layout Scheme Data Product this instance refers to
 	 * @return a org.w3c.dom.Document containing the generated Physical Data Instance
 	 * @throws SPSSFileException
 	 */
@@ -906,10 +880,8 @@ public class SPSSFile extends RandomAccessFile {
 	 * 
 	 * @param uri
 	 * @param dataFormat
-	 * @param recordLayoutSchemeID
-	 *            the Record Layout Scheme Data Product this instance refers to
-	 * @param uniqueID
-	 *            a String value for the r:ID element. If null, a unique ID will be generated automatically based on the java.util.UUID class
+	 * @param recordLayoutSchemeID the Record Layout Scheme Data Product this instance refers to
+	 * @param uniqueID a String value for the r:ID element. If null, a unique ID will be generated automatically based on the java.util.UUID class
 	 * @return a org.w3c.dom.Document containing the generated Physical Data Instance
 	 * @throws SPSSFileException
 	 */
@@ -922,10 +894,8 @@ public class SPSSFile extends RandomAccessFile {
 	 * 
 	 * @param uri
 	 * @param dataFormat
-	 * @param recordLayoutSchemeID
-	 *            the Record Layout Scheme Data Product this instance refers to
-	 * @param uniqueID
-	 *            a String value for the r:ID element. If null, a unique ID will be generated automatically based on the java.util.UUID class
+	 * @param recordLayoutSchemeID the Record Layout Scheme Data Product this instance refers to
+	 * @param uniqueID a String value for the r:ID element. If null, a unique ID will be generated automatically based on the java.util.UUID class
 	 * @param identifyingAgency
 	 * @return a org.w3c.dom.Document containing the generated Physical Data Instance
 	 * @throws SPSSFileException
@@ -942,16 +912,14 @@ public class SPSSFile extends RandomAccessFile {
 			doc = domBuilder.newDocument();
 
 			Element physicalInstance = (Element) doc.appendChild(doc.createElementNS(DDI3_PHYSICAL_INSTANCE_NAMESPACE, "PhysicalInstance"));
-			if (uniqueID == null)
-				uniqueID = getDDI3DefaultPhysicalInstanceID(dataFormat);
+			if (uniqueID == null) uniqueID = getDDI3DefaultPhysicalInstanceID(dataFormat);
 			Utils.setDDIMaintainableId(physicalInstance, uniqueID);
 
 			// record layout reference
 			Element recordLayoutReference = (Element) physicalInstance.appendChild(doc.createElementNS(DDI3_PHYSICAL_INSTANCE_NAMESPACE, "RecordLayoutReference"));
 
 			// Scheme + ID
-			if (recordLayoutSchemeID == null)
-				recordLayoutSchemeID = getDDI3DefaultRecordLayoutSchemeID(dataFormat);
+			if (recordLayoutSchemeID == null) recordLayoutSchemeID = getDDI3DefaultRecordLayoutSchemeID(dataFormat);
 			elem = (Element) recordLayoutReference.appendChild(doc.createElementNS(SPSSFile.DDI3_REUSABLE_NAMESPACE, "Scheme"));
 			elem = (Element) elem.appendChild(doc.createElementNS(SPSSFile.DDI3_REUSABLE_NAMESPACE, "ID"));
 			elem.setTextContent(recordLayoutSchemeID);
@@ -962,17 +930,20 @@ public class SPSSFile extends RandomAccessFile {
 			Element dataFileIdentification = (Element) physicalInstance.appendChild(doc.createElementNS(DDI3_PHYSICAL_INSTANCE_NAMESPACE, "DataFileIdentification"));
 			Utils.setDDIIdentifiableId(dataFileIdentification, physicalInstanceFileID);
 			// Master
-			if (dataFormat.format == FileFormatInfo.Format.SPSS)
-				dataFileIdentification.setAttribute("isMaster", "true");
+			if (dataFormat.format == FileFormatInfo.Format.SPSS) dataFileIdentification.setAttribute("isMaster", "true");
 
 			if (uri != null) {
-				/*
-				 * TODO // Name elem = (Element) dataFileIdentification.appendChild(doc.createElementNS(SPSSFile.DDI3_REUSABLE_NAMESPACE,"Name")); elem.setTextContent(uri.toURL().getFile()); // Path elem = (Element) dataFileIdentification.appendChild(doc.createElementNS(SPSSFile.DDI3_PHYSICAL_INSTANCE_NAMESPACE,"Path")); elem.setTextContent(uri.getPath());
+				/* TODO
+				 	// Name
+				 	elem = (Element) dataFileIdentification.appendChild(doc.createElementNS(SPSSFile.DDI3_REUSABLE_NAMESPACE,"Name"));
+				 	elem.setTextContent(uri.toURL().getFile());
+				 	// Path
+				 	elem = (Element) dataFileIdentification.appendChild(doc.createElementNS(SPSSFile.DDI3_PHYSICAL_INSTANCE_NAMESPACE,"Path"));
+				 	elem.setTextContent(uri.getPath());
 				 */
 				// File URI
 				elem = (Element) dataFileIdentification.appendChild(doc.createElementNS(SPSSFile.DDI3_PHYSICAL_INSTANCE_NAMESPACE, "URI"));
-				if (uri != null)
-					elem.setTextContent(uri.toString());
+				if (uri != null) elem.setTextContent(uri.toString());
 			}
 
 			// Gross File Structure
@@ -1003,23 +974,20 @@ public class SPSSFile extends RandomAccessFile {
 	 * @throws SPSSFileException
 	 */
 	public String getRecord(int obsNumber, FileFormatInfo dataFormat) throws SPSSFileException {
-		if (!isMetadataLoaded)
-			throw new SPSSFileException("Metadata has not been loaded");
-		if (!isDataLoaded)
-			throw new SPSSFileException("Data has not been loaded");
+		if (!isMetadataLoaded) throw new SPSSFileException("Metadata has not been loaded");
+		if (!isDataLoaded) throw new SPSSFileException("Data has not been loaded");
 		String recordStr = "";
 		if (obsNumber < 1 || obsNumber > getRecordCount()) {
 			throw new SPSSFileException("Invalid record number [" + obsNumber + ". Range is 1 to " + getRecordCount() + "]");
-		} else {
+		}
+		else {
 			Iterator varIterator = variableMap.keySet().iterator();
 			int n = 1;
 			while (varIterator.hasNext()) {
 				// prefix
 				if (n > 1) {
-					if (dataFormat.asciiFormat == FileFormatInfo.ASCIIFormat.DELIMITED)
-						recordStr += dataFormat.asciiDelimiter;
-					else if (dataFormat.asciiFormat == FileFormatInfo.ASCIIFormat.CSV)
-						recordStr += ",";
+					if (dataFormat.asciiFormat == FileFormatInfo.ASCIIFormat.DELIMITED) recordStr += dataFormat.asciiDelimiter;
+					else if (dataFormat.asciiFormat == FileFormatInfo.ASCIIFormat.CSV) recordStr += ",";
 				}
 				// value
 				SPSSVariable var = variableMap.get(varIterator.next());
@@ -1031,11 +999,11 @@ public class SPSSFile extends RandomAccessFile {
 	}
 
 	/**
-	 * Gets a data record in the specified format. If rewind is false, this assumes the file pointer is ta the correct location
+	 * Gets a data record in the specified format. 
+	 * If rewind is false, this assumes the file pointer is ta the correct location
 	 * 
 	 * @param dataFormat
-	 * @param rewind
-	 *            If true start reading from first record otherwise continue from current location until end of file is reached
+	 * @param rewind If true start reading from first record otherwise continue from current location until end of file is reached
 	 * @return A string holding the record values
 	 * @throws SPSSFileException
 	 * @throws IOException
@@ -1064,10 +1032,8 @@ public class SPSSFile extends RandomAccessFile {
 		while (varIterator.hasNext()) {
 			// prefix
 			if (n > 1) {
-				if (dataFormat.asciiFormat == FileFormatInfo.ASCIIFormat.DELIMITED)
-					recordStr += dataFormat.asciiDelimiter;
-				else if (dataFormat.asciiFormat == FileFormatInfo.ASCIIFormat.CSV)
-					recordStr += ",";
+				if (dataFormat.asciiFormat == FileFormatInfo.ASCIIFormat.DELIMITED) recordStr += dataFormat.asciiDelimiter;
+				else if (dataFormat.asciiFormat == FileFormatInfo.ASCIIFormat.CSV) recordStr += ",";
 			}
 			// value
 			SPSSVariable var = variableMap.get(varIterator.next());
@@ -1087,7 +1053,8 @@ public class SPSSFile extends RandomAccessFile {
 	}
 
 	/**
-	 * Gets the unique identifier for this file. If this value is not set, a unique string will be generated using java.util.UUID.randomUUID()
+	 * Gets the unique identifier for this file. 
+	 * If this value is not set, a unique string will be generated using java.util.UUID.randomUUID()
 	 * 
 	 * @return a String holding the identifier
 	 */
@@ -1104,10 +1071,8 @@ public class SPSSFile extends RandomAccessFile {
 	 * @throws SPSSFileException
 	 */
 	public SPSSVariable getVariable(int index) {
-		if (index >= variableMap.size() || index < 0)
-			return (null);
-		else
-			return ((SPSSVariable) variableMap.values().toArray()[index]);
+		if (index >= variableMap.size() || index < 0) return (null);
+		else return ((SPSSVariable) variableMap.values().toArray()[index]);
 	}
 
 	/**
@@ -1120,7 +1085,8 @@ public class SPSSFile extends RandomAccessFile {
 	}
 
 	/**
-	 * Load the data section of the file into the variables in memory. This may be expensive on memory, use with care on large datasets
+	 * Load the data section of the file into the variables in memory. 
+	 * This may be expensive on memory, use with care on large datasets
 	 * 
 	 * @throws SPSSFileException
 	 * @throws IOException
@@ -1183,7 +1149,8 @@ public class SPSSFile extends RandomAccessFile {
 
 				if (type2Record.variableTypeCode == 0) {
 					var = new SPSSNumericVariable(this);
-				} else {
+				}
+				else {
 					var = new SPSSStringVariable(this);
 				}
 
@@ -1207,7 +1174,8 @@ public class SPSSFile extends RandomAccessFile {
 						cat.isMissing = true;
 
 					}
-				} else if (type2Record.missingValueFormatCode <= -2) {
+				}
+				else if (type2Record.missingValueFormatCode <= -2) {
 					// -2 --> range of missing value codes
 					// Note1: This is only allowed for numeric variable
 					// Note2: We assume that the range ius made of integral values and increments by 1!!
@@ -1377,8 +1345,7 @@ public class SPSSFile extends RandomAccessFile {
 			Calendar now = Calendar.getInstance();
 			now.setTime(new Date());
 			msg = "" + now.get(Calendar.HOUR_OF_DAY) + ":" + now.get(Calendar.MINUTE) + ":" + now.get(Calendar.SECOND) + " " + msg;
-			if (logFile == null)
-				System.out.println(msg);
+			if (logFile == null) System.out.println(msg);
 			else {
 				try {
 					if (logWriter == null) {
@@ -1402,9 +1369,9 @@ public class SPSSFile extends RandomAccessFile {
 		byte[] buffer = new byte[8];
 		if (isBigEndian) {
 			// reverse read
-			for (int i = 7; i >= 0; i--)
-				buffer[i] = readByte();
-		} else {
+			for (int i = 7; i >= 0; i--) buffer[i] = readByte();
+		}
+		else {
 			this.read(buffer);
 		}
 		return (SPSSUtils.byte8ToDouble(buffer));
@@ -1421,9 +1388,9 @@ public class SPSSFile extends RandomAccessFile {
 		byte[] buffer = new byte[4];
 		if (isBigEndian) {
 			// reverse read
-			for (int i = 3; i >= 0; i--)
-				buffer[i] = readByte();
-		} else {
+			for (int i = 3; i >= 0; i--) buffer[i] = readByte();
+		}
+		else {
 			this.read(buffer);
 		}
 		return (SPSSUtils.byte4ToInt(buffer));
@@ -1432,8 +1399,7 @@ public class SPSSFile extends RandomAccessFile {
 	/**
 	 * Reads a string from the SPSS file
 	 * 
-	 * @param length
-	 *            Number of characters to read
+	 * @param length Number of characters to read
 	 * @return the String value read from the file
 	 */
 	public String readSPSSString(int length) throws IOException {

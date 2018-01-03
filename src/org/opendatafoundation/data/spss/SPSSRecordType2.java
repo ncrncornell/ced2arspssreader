@@ -2,29 +2,29 @@ package org.opendatafoundation.data.spss;
 
 /*
  * Author(s): Pascal Heus (pheus@opendatafoundation.org)
+ *  
+ * This product has been developed with the financial and 
+ * technical support of the UK Data Archive Data Exchange Tools 
+ * project (http://www.data-archive.ac.uk/dext/) and the 
+ * Open Data Foundation (http://www.opendatafoundation.org) 
  * 
- * This product has been developed with the financial and
- * technical support of the UK Data Archive Data Exchange Tools
- * project (http://www.data-archive.ac.uk/dext/) and the
- * Open Data Foundation (http://www.opendatafoundation.org)
+ * Copyright 2007 University of Essex (http://www.esds.ac.uk) 
  * 
- * Copyright 2007 University of Essex (http://www.esds.ac.uk)
- * 
- * This program is free software; you can redistribute it and/or modify it
+ * This program is free software; you can redistribute it and/or modify it 
  * under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation; either version 2.1 of the License, or
+ * the Free Software Foundation; either version 2.1 of the License, or 
  * (at your option) any later version.
  * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * This program is distributed in the hope that it will be useful, 
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of 
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  * See the GNU Lesser General Public License for more details.
- * 
- * You should have received a copy of the GNU Lesser General Public
- * License along with this library; if not, write to the
- * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+ *  
+ * You should have received a copy of the GNU Lesser General Public 
+ * License along with this library; if not, write to the 
+ * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, 
  * Boston, MA  02110-1301  USA
- * The full text of the license is also available on the Internet at
+ * The full text of the license is also available on the Internet at 
  * http://www.gnu.org/copyleft/lesser.html
  * 
  */
@@ -62,8 +62,6 @@ public class SPSSRecordType2 extends SPSSAbstractRecordType {
 	SPSSRecordType3 valueLabelSet;
 
 	
-	
-	
 	/**
 	 * 
 	 * @return write formt width
@@ -79,114 +77,42 @@ public class SPSSRecordType2 extends SPSSAbstractRecordType {
 	public String getFormatTypeCode(int value) {
 		String label = "UNK";
 		switch (value) {
-		case 0:
-			label = "";
-			break;
-		case 1:
-			label = "A";
-			break;
-		case 2:
-			label = "AHEX";
-			break;
-		case 3:
-			label = "COMMA";
-			break;
-		case 4:
-			label = "DOLLAR";
-			break;
-		case 5:
-			label = "F";
-			break;
-		case 6:
-			label = "IB";
-			break;
-		case 7:
-			label = "PIBHEX";
-			break;
-		case 8:
-			label = "P";
-			break;
-		case 9:
-			label = "PIB";
-			break;
-		case 10:
-			label = "PK";
-			break;
-		case 11:
-			label = "RB";
-			break;
-		case 12:
-			label = "RBHEX";
-			break;
-		case 15:
-			label = "Z";
-			break;
-		case 16:
-			label = "N";
-			break;
-		case 17:
-			label = "E";
-			break;
-		case 20:
-			label = "DATE";
-			break;
-		case 21:
-			label = "TIME";
-			break;
-		case 22:
-			label = "DATETIME";
-			break;
-		case 23:
-			label = "ADATE";
-			break;
-		case 24:
-			label = "JDATE";
-			break;
-		case 25:
-			label = "DTIME";
-			break;
-		case 26:
-			label = "WKDAY";
-			break;
-		case 27:
-			label = "MONTH";
-			break;
-		case 28:
-			label = "MOYR";
-			break;
-		case 29:
-			label = "QYR";
-			break;
-		case 30:
-			label = "WKYR";
-			break;
-		case 31:
-			label = "PCT";
-			break;
-		case 32:
-			label = "DOT";
-			break;
-		case 33:
-			label = "CCA";
-			break;
-		case 34:
-			label = "CCB";
-			break;
-		case 35:
-			label = "CCC";
-			break;
-		case 36:
-			label = "CCD";
-			break;
-		case 37:
-			label = "CCE";
-			break;
-		case 38:
-			label = "EDATE";
-			break;
-		case 39:
-			label = "SDATE";
-			break;
+		case 0: label = ""; break;
+		case 1: label = "A"; break;
+		case 2: label = "AHEX"; break;
+		case 3: label = "COMMA"; break;
+		case 4: label = "DOLLAR"; break;
+		case 5: label = "F"; break;
+		case 6: label = "IB"; break;
+		case 7: label = "PIBHEX"; break;
+		case 8: label = "P"; break;
+		case 9: label = "PIB"; break;
+		case 10: label = "PK"; break;
+		case 11: label = "RB"; break;
+		case 12: label = "RBHEX"; break;
+		case 15: label = "Z"; break;
+		case 16: label = "N"; break;
+		case 17: label = "E"; break;
+		case 20: label = "DATE"; break;
+		case 21: label = "TIME"; break;
+		case 22: label = "DATETIME"; break;
+		case 23: label = "ADATE"; break;
+		case 24: label = "JDATE"; break;
+		case 25: label = "DTIME"; break;
+		case 26: label = "WKDAY"; break;
+		case 27: label = "MONTH"; break;
+		case 28: label = "MOYR"; break;
+		case 29: label = "QYR"; break;
+		case 30: label = "WKYR"; break;
+		case 31: label = "PCT"; break;
+		case 32: label = "DOT"; break;
+		case 33: label = "CCA"; break;
+		case 34: label = "CCB"; break;
+		case 35: label = "CCC"; break;
+		case 36: label = "CCD"; break;
+		case 37: label = "CCE"; break;
+		case 38: label = "EDATE"; break;
+		case 39: label = "SDATE"; break;
 		}
 		return (label);
 	}
@@ -197,114 +123,42 @@ public class SPSSRecordType2 extends SPSSAbstractRecordType {
 	public String getFormatTypeLabel(int value) {
 		String label = "Unknown";
 		switch (value) {
-		case 0:
-			label = "Continuation of string variable";
-			break;
-		case 1:
-			label = "Alphanumeric";
-			break;
-		case 2:
-			label = "Alphanumeric hexadecimal";
-			break;
-		case 3:
-			label = "F format with comma";
-			break;
-		case 4:
-			label = "Integer binary";
-			break;
-		case 5:
-			label = "F (default numeric) format";
-			break;
-		case 6:
-			label = "Integer binary";
-			break;
-		case 7:
-			label = "Positive integer binary - hexadecimal";
-			break;
-		case 8:
-			label = "Packed decimal";
-			break;
-		case 9:
-			label = "Positive integer binary (unsigned)";
-			break;
-		case 10:
-			label = "Positive packed decimal (unsigned)";
-			break;
-		case 11:
-			label = "Floating point binary";
-			break;
-		case 12:
-			label = "Floating point binary - hex";
-			break;
-		case 15:
-			label = "Zoned decimal";
-			break;
-		case 16:
-			label = "N format - unsigned with leading zeroes";
-			break;
-		case 17:
-			label = "E fromat - with explicit power of 10";
-			break;
-		case 20:
-			label = "Date format dd-mmm-yyyy";
-			break;
-		case 21:
-			label = "Time format hh:mm:ss.s";
-			break;
-		case 22:
-			label = "Date and time";
-			break;
-		case 23:
-			label = "Date in mm/dd/yyyy form";
-			break;
-		case 24:
-			label = "Julian date - yyyyddd";
-			break;
-		case 25:
-			label = "Date-time dd hh:mm:ss.s";
-			break;
-		case 26:
-			label = "Day of the week";
-			break;
-		case 27:
-			label = "Month";
-			break;
-		case 28:
-			label = "mmm yyyy";
-			break;
-		case 29:
-			label = "q Q yyyy";
-			break;
-		case 30:
-			label = "ww WK yyyy";
-			break;
-		case 31:
-			label = "Percent - F followed by '%'";
-			break;
-		case 32:
-			label = "Like COMMA, swicthing dot for comma";
-			break;
-		case 33:
-			label = "User-programmable currency format (1)";
-			break;
-		case 34:
-			label = "User-programmable currency format (2)";
-			break;
-		case 35:
-			label = "User-programmable currency format (3)";
-			break;
-		case 36:
-			label = "User-programmable currency format (4)";
-			break;
-		case 37:
-			label = "User-programmable currency format (5)";
-			break;
-		case 38:
-			label = "Date in dd.mm.yyyy style";
-			break;
-		case 39:
-			label = "Date in yyyy/mm/dd style";
-			break;
+		case 0: label = "Continuation of string variable"; break;
+		case 1: label = "Alphanumeric"; break;
+		case 2: label = "Alphanumeric hexadecimal"; break;
+		case 3: label = "F format with comma"; break;
+		case 4: label = "Integer binary"; break;
+		case 5: label = "F (default numeric) format"; break;
+		case 6: label = "Integer binary"; break;
+		case 7: label = "Positive integer binary - hexadecimal"; break;
+		case 8: label = "Packed decimal"; break;
+		case 9: label = "Positive integer binary (unsigned)"; break;
+		case 10: label = "Positive packed decimal (unsigned)"; break;
+		case 11: label = "Floating point binary"; break;
+		case 12: label = "Floating point binary - hex"; break;
+		case 15: label = "Zoned decimal"; break;
+		case 16: label = "N format - unsigned with leading zeroes"; break;
+		case 17: label = "E fromat - with explicit power of 10"; break;
+		case 20: label = "Date format dd-mmm-yyyy"; break;
+		case 21: label = "Time format hh:mm:ss.s"; break;
+		case 22: label = "Date and time"; break;
+		case 23: label = "Date in mm/dd/yyyy form"; break;
+		case 24: label = "Julian date - yyyyddd"; break;
+		case 25: label = "Date-time dd hh:mm:ss.s"; break;
+		case 26: label = "Day of the week"; break;
+		case 27: label = "Month"; break;
+		case 28: label = "mmm yyyy"; break;
+		case 29: label = "q Q yyyy"; break;
+		case 30: label = "ww WK yyyy"; break;
+		case 31: label = "Percent - F followed by '%'"; break;
+		case 32: label = "Like COMMA, swicthing dot for comma"; break;
+		case 33: label = "User-programmable currency format (1)"; break;
+		case 34: label = "User-programmable currency format (2)"; break;
+		case 35: label = "User-programmable currency format (3)"; break;
+		case 36: label = "User-programmable currency format (4)"; break;
+		case 37: label = "User-programmable currency format (5)"; break;
+		case 38: label = "Date in dd.mm.yyyy style"; break;
+		case 39: label = "Date in yyyy/mm/dd style"; break;
 		}
 		return (label);
 	}
@@ -347,8 +201,7 @@ public class SPSSRecordType2 extends SPSSAbstractRecordType {
 			label = is.readSPSSString(labelLength);
 			// variableRecord labels are stored in chunks of 4-bytes
 			// --> we need to skip unused bytes in the last chunk
-			if ((labelLength % 4) != 0)
-				is.skipBytes(4 - (labelLength % 4));
+			if ((labelLength % 4) != 0) is.skipBytes(4 - (labelLength % 4));
 		}
 		// missing values
 		for (int i = 0; i < Math.abs(missingValueFormatCode); i++) {

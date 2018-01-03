@@ -2,29 +2,29 @@ package org.opendatafoundation.data.spss;
 
 /*
  * Author(s): Pascal Heus (pheus@opendatafoundation.org)
- * 
- * This product has been developed with the financial and
- * technical support of the UK Data Archive Data Exchange Tools
- * project (http://www.data-archive.ac.uk/dext/) and the
+ *  
+ * This product has been developed with the financial and 
+ * technical support of the UK Data Archive Data Exchange Tools 
+ * project (http://www.data-archive.ac.uk/dext/) and the 
  * Open Data Foundation (http://www.opendatafoundation.org)
  * 
- * Copyright 2007 University of Essex (http://www.esds.ac.uk)
+ * Copyright 2007 University of Essex (http://www.esds.ac.uk) 
  * 
- * This program is free software; you can redistribute it and/or modify it
+ * This program is free software; you can redistribute it and/or modify it 
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation; either version 2.1 of the License, or
  * (at your option) any later version.
  * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * This program is distributed in the hope that it will be useful, 
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of 
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  * See the GNU Lesser General Public License for more details.
  * 
- * You should have received a copy of the GNU Lesser General Public
- * License along with this library; if not, write to the
- * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+ * You should have received a copy of the GNU Lesser General Public 
+ * License along with this library; if not, write to the 
+ * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, 
  * Boston, MA  02110-1301  USA
- * The full text of the license is also available on the Internet at
+ * The full text of the license is also available on the Internet at 
  * http://www.gnu.org/copyleft/lesser.html
  * 
  */
@@ -44,9 +44,9 @@ import org.opendatafoundation.data.Utils;
  * @author Pascal Heus (pheus@opendatafoundation.org)
  */
 public class SPSSNumericVariable extends SPSSVariable {
-	/** a list of data values used to load the file into memory */
-	public List<Double> data;
-	/** a single data value used when reading data from disk */
+	/** a list of data values used to load the file into memory */ 
+	public List<Double> data; 
+	/** a single data value used when reading data from disk */ 
 	public double value;
 
 	// summary statistics
@@ -68,7 +68,6 @@ public class SPSSNumericVariable extends SPSSVariable {
 
 	/**
 	 * Adds a category to the variable based on a byte[8] value
-	 * 
 	 * @throws SPSSFileException
 	 */
 	public SPSSVariableCategory addCategory(byte[] byteValue, String label) throws SPSSFileException {
@@ -78,7 +77,6 @@ public class SPSSNumericVariable extends SPSSVariable {
 
 	/**
 	 * Adds a category to the variable based on a double value
-	 * 
 	 * @throws SPSSFileException
 	 */
 	public SPSSVariableCategory addCategory(double value, String label) throws SPSSFileException {
@@ -98,7 +96,6 @@ public class SPSSNumericVariable extends SPSSVariable {
 
 	/**
 	 * Gets a category for this variable based on a byte[8] value
-	 * 
 	 * @throws SPSSFileException
 	 */
 	public SPSSVariableCategory getCategory(byte[] byteValue) throws SPSSFileException {
@@ -108,7 +105,6 @@ public class SPSSNumericVariable extends SPSSVariable {
 
 	/**
 	 * Gets a category for this variable based on a double value
-	 * 
 	 * @throws SPSSFileException
 	 */
 	public SPSSVariableCategory getCategory(double value) throws SPSSFileException {
@@ -198,12 +194,14 @@ public class SPSSNumericVariable extends SPSSVariable {
 	}
 
 	/**
-	 * Returns an observation value as a string based on the specified data ad variable format. The specified record number is used to determine which value is read. If a nthe observation umber is between 1 and the number of observation in the file is specifed and asusming the data has been loaded in memory, the relevant record number value is returned. If the observation number is 0, the variable value is retrned instead.
+	 * Returns an observation value as a string based on the specified data ad variable format.
+	 * The specified record number is used to determine which value is read. 
+	 * If a nthe observation umber is between 1 and the number of observation in the file is specifed 
+	 * and asusming the data has been loaded in memory, the relevant record number value is returned. 
+	 * If the observation number is 0, the variable value is retrned instead.
 	 * 
-	 * @param obsNumber
-	 *            the record. Either 0 or between 1 and the nukber of observations
-	 * @param dataFormat
-	 *            the file format
+	 * @param obsNumber the record. Either 0 or between 1 and the nukber of observations
+	 * @param dataFormat the file format
 	 * @throws SPSSFileException
 	 */
 	public String getValueAsString(int obsNumber, FileFormatInfo dataFormat) throws SPSSFileException {
@@ -230,10 +228,8 @@ public class SPSSNumericVariable extends SPSSVariable {
 		// length
 		if (dataFormat.asciiFormat == FileFormatInfo.ASCIIFormat.FIXED) {
 			// fixed length formats
-			if (strValue.equals("."))
-				strValue = Utils.leftPad("", this.getLength()); // replace missing values with spaces
-			else if (strValue.length() < getLength())
-				strValue = Utils.leftPad(strValue, this.getLength()); // left pad
+			if (strValue.equals(".")) strValue = Utils.leftPad("", this.getLength()); // replace missing values with spaces
+			else if (strValue.length() < getLength()) strValue = Utils.leftPad(strValue, this.getLength()); // left pad
 			else if (strValue.length() > getLength()) { // this value is too long to fit in the allocate space
 				// for fixed format, see if we can truncate the decimals (this is the same for SPSS fixed export)
 				if (variableRecord.writeFormatType == 5 && getDecimals() > 0) {
@@ -243,10 +239,10 @@ public class SPSSNumericVariable extends SPSSVariable {
 						strValue = String.format(Locale.US, "%" + this.getLength() + "." + (this.getLength() - dotPosition - 1) + "f", value);
 					} else if (dotPosition <= getLength()) { // we can fit the non-decimal protion
 						strValue = Utils.leftPad(strValue.substring(1, dotPosition - 1), this.getLength());
-					} else
-						strValue = Utils.leftPad("", getLength(), '*');
-				} else
-					strValue = Utils.leftPad("", getLength(), '*'); // this overflows the allocated width, return a string of '*'
+					} 
+					else strValue = Utils.leftPad("", getLength(), '*');
+				} 
+				else strValue = Utils.leftPad("", getLength(), '*'); // this overflows the allocated width, return a string of '*'
 			}
 		} else {
 			// variable length formats
@@ -268,11 +264,9 @@ public class SPSSNumericVariable extends SPSSVariable {
 	/**
 	 * Converts a numeric value (float) into a string representation based on the variable formnatting.
 	 * 
-	 * @param value
-	 *            the value to format
+	 * @param value the value to format
 	 * @return the string containing the formatted value
-	 * @throws SPSSFileException
-	 *             if an unknown write fromat type is found
+	 * @throws SPSSFileException if an unknown write fromat type is found
 	 */
 	public String valueToString(double value) throws SPSSFileException {
 		String strFormat = "";
@@ -282,7 +276,8 @@ public class SPSSNumericVariable extends SPSSVariable {
 
 		if (new Double(value).isNaN()) {
 			strValue = ".";
-		} else {
+		} 
+		else {
 			switch (variableRecord.writeFormatType) {
 			case 3: // Comma
 				strFormat += "%,." + getDecimals() + "f";
@@ -305,10 +300,8 @@ public class SPSSNumericVariable extends SPSSVariable {
 				break;
 			case 20: // Date dd-mmm-yyyy or dd-mmm-yy
 				calendar = SPSSUtils.numericToCalendar(value);
-				if (this.getLength() == 11)
-					strFormat += "%1$td-%1$tb-%1$tY";
-				else
-					strFormat += "%1$td-%1$tb-%1$ty";
+				if (this.getLength() == 11) strFormat += "%1$td-%1$tb-%1$tY";
+				else strFormat += "%1$td-%1$tb-%1$ty";
 				strValue = String.format(Locale.US, strFormat, calendar).toUpperCase();
 				break;
 			case 21: // Time in hh:mm, hh:mm:ss or hh:mm:ss.ss
@@ -324,44 +317,34 @@ public class SPSSNumericVariable extends SPSSVariable {
 			case 22: // DateTime in dd-mmm-yyyy hh:mm, dd-mmm-yyyy hh:mm:ss or dd-mmm-yyyy hh:mm:ss.ss
 				calendar = SPSSUtils.numericToCalendar(value);
 				strFormat += "%1$td-%1$tb-%1$tY %1$tH:%1$tM";
-				if (this.getLength() >= 20)
-					strFormat += ":%1$tS";
-				if (this.getLength() == 23)
-					strFormat += ".%2$2d";
+				if (this.getLength() >= 20) strFormat += ":%1$tS";
+				if (this.getLength() == 23) strFormat += ".%2$2d";
 				strValue = String.format(Locale.US, strFormat, calendar, calendar.get(Calendar.MILLISECOND) / 10).toUpperCase();
 				break;
 			case 23: // Date in mm/dd/yy or mm/dd/yyyy
 				calendar = SPSSUtils.numericToCalendar(value);
-				if (this.getLength() == 10)
-					strFormat += "%1$tm/%1$td/%1$tY";
-				else
-					strFormat += "%1$tm/%1$td/%1$ty";
+				if (this.getLength() == 10) strFormat += "%1$tm/%1$td/%1$tY";
+				else strFormat += "%1$tm/%1$td/%1$ty";
 				strValue = String.format(Locale.US, strFormat, calendar);
 				break;
 			case 24: // Date in yyyyddd or yyddd
 				calendar = SPSSUtils.numericToCalendar(value);
-				if (this.getLength() == 7)
-					strFormat += "%1$tY%1$tj";
-				else
-					strFormat += "%1$ty%1$tj";
+				if (this.getLength() == 7) strFormat += "%1$tY%1$tj";
+				else strFormat += "%1$ty%1$tj";
 				strValue = String.format(Locale.US, strFormat, calendar);
 				break;
 			case 25: // DateTime in ddd:hh:mm, ddd:hh:mm:ss or ddd:hh:mm:ss.ss
 				calendar = SPSSUtils.numericToCalendar(value);
 				strFormat += "%1$tj:%1$tH:%1$tM";
-				if (this.getLength() >= 12)
-					strFormat += ":%1$tS";
-				if (this.getLength() == 15)
-					strFormat += ".%2$2d";
+				if (this.getLength() >= 12) strFormat += ":%1$tS";
+				if (this.getLength() == 15) strFormat += ".%2$2d";
 				strValue = String.format(Locale.US, strFormat, calendar, calendar.get(Calendar.MILLISECOND) / 10);
 				break;
 			case 26: // Date as day of the week, full name or 3-letter
 				calendar = new GregorianCalendar();
 				calendar.set(Calendar.DAY_OF_WEEK, (int) value);
-				if (this.getLength() == 9)
-					strFormat += "%1$tA";
-				else
-					strFormat += "%1$ta";
+				if (this.getLength() == 9) strFormat += "%1$tA";
+				else strFormat += "%1$ta";
 				strValue = String.format(Locale.US, strFormat, calendar).toUpperCase(); // upper case to match SPSS export
 				break;
 			case 27: // Date 3-letter month
@@ -372,34 +355,24 @@ public class SPSSNumericVariable extends SPSSVariable {
 				break;
 			case 28: // Date in mmm yyyy or mmm yy
 				calendar = SPSSUtils.numericToCalendar(value);
-				if (this.getLength() == 8)
-					strFormat += "%1$tb %1$tY";
-				else
-					strFormat += "%1$tb %1$ty";
+				if (this.getLength() == 8) strFormat += "%1$tb %1$tY";
+				else strFormat += "%1$tb %1$ty";
 				strValue = String.format(Locale.US, strFormat, calendar).toUpperCase();
 				break;
 			case 29: // Date in q Q yyyy or q Q yy
 				calendar = SPSSUtils.numericToCalendar(value);
-				if (calendar.get(Calendar.MONTH) <= 3)
-					strFormat += "1 Q ";
-				else if (calendar.get(Calendar.MONTH) <= 6)
-					strFormat += "2 Q ";
-				else if (calendar.get(Calendar.MONTH) <= 9)
-					strFormat += "3 Q ";
-				else
-					strFormat += "4 Q";
-				if (this.getLength() == 8)
-					strFormat += "%1$tY";
-				else
-					strFormat += "%1$ty";
+				if (calendar.get(Calendar.MONTH) <= 3) strFormat += "1 Q ";
+				else if (calendar.get(Calendar.MONTH) <= 6) strFormat += "2 Q ";
+				else if (calendar.get(Calendar.MONTH) <= 9) strFormat += "3 Q ";
+				else strFormat += "4 Q";
+				if (this.getLength() == 8) strFormat += "%1$tY";
+				else strFormat += "%1$ty";
 				strValue = String.format(Locale.US, strFormat, calendar);
 				break;
 			case 30: // Date in wk WK yyyy or wk WK yy
 				calendar = SPSSUtils.numericToCalendar(value);
-				if (this.getLength() == 10)
-					strFormat += "%1$2d WK %2$tY";
-				else
-					strFormat += "%1$2d WK %2$ty";
+				if (this.getLength() == 10) strFormat += "%1$2d WK %2$tY";
+				else strFormat += "%1$2d WK %2$ty";
 				strValue = String.format(Locale.US, strFormat, calendar.get(Calendar.WEEK_OF_YEAR), calendar);
 				break;
 			case 32: // Dot (use Germany locale, for some reasonm french does not display the dot thousand separator)
@@ -416,18 +389,14 @@ public class SPSSNumericVariable extends SPSSVariable {
 				break;
 			case 38: // Date in dd.mm.yy or dd.mm.yyyy
 				calendar = SPSSUtils.numericToCalendar(value);
-				if (this.getLength() == 10)
-					strFormat += "%1$td.%1$tm.%1$tY";
-				else
-					strFormat += "%1$td.%1$tm.%1$ty";
+				if (this.getLength() == 10) strFormat += "%1$td.%1$tm.%1$tY";
+				else strFormat += "%1$td.%1$tm.%1$ty";
 				strValue = String.format(Locale.US, strFormat, calendar);
 				break;
 			case 39: // Date in yy/mm/dd or yyyy/mm/dd
 				calendar = SPSSUtils.numericToCalendar(value);
-				if (this.getLength() == 10)
-					strFormat += "%1$tY/%1$tm.%1$td";
-				else
-					strFormat += "%1$ty/%1$tm/%1$td";
+				if (this.getLength() == 10) strFormat += "%1$tY/%1$tm.%1$td";
+				else strFormat += "%1$ty/%1$tm/%1$td";
 				strValue = String.format(Locale.US, strFormat, calendar);
 				break;
 			default:
