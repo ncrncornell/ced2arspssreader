@@ -24,16 +24,15 @@ Detailed file changes are in the LGPL-Changes.txt file.
 ### Build
 
 1. Clone the github repository to your machine.
-2. Use maven to build the project.
-  1. Go to the root directory of the cloned repository.
-  2. On the command line enter the following maven command
+2. Go to the root directory of the cloned repository.
+3. Use maven 2 `to build the project. On the command line, enter the following command
 
-   mvn clean install 
+   ```mvn clean install```  
 
 
 ### Usage 
 
-The best way to use this code is to include the jar file in an existing project, such as: ced2arddigenerator
+The best way to use this code is to include the jar file in an existing project, such as [ced2arddigenerator](https://github.com/ncrncornell/ced2arddigenerator) 
 The following code is in: ced2arddigenerator's SpssCsvGenerator.java file
 ```
 	/**
