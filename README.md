@@ -25,7 +25,7 @@ Detailed file changes are in the LGPL-Changes.txt file.
 
 1. Clone the github repository to your machine.
 2. Go to the root directory of the cloned repository.
-3. Use maven 2 `to build the project. On the command line, enter the following command
+3. Use maven 2 to build the project. On the command line, enter the following command
 
    ```mvn clean install```  
 
@@ -109,7 +109,3 @@ The following code is in: ced2arddigenerator's SpssCsvGenerator.java file
 		return variablesCSV;
 	}
 ```
-
----
-Version: 1.2.0 1/4/18 Required: JDK 7.0
-
