@@ -2,21 +2,21 @@
 
 This project contains java classes that will allow you to read several versions of **SPSS** data sets.
 
-It modifies the code originally written by Pascal Hues (pheus@opendatafoundation.org) for the UK Data Archive Data Exchange Tools project (http://www.data-archive.ac.uk/dext/) and the Open Data Foundation (http://www.opendatafoundation.org). Copyright 2007 University of Essex (http://www.esds.ac.uk). GNU Lesser General Public License 2.1.  Initial source: http://svn.odaf.org/ddidext/org.opendatafoundation.data/ 
+It modifies the code originally written by Pascal Heus (pheus@opendatafoundation.org) for the UK Data Archive Data Exchange Tools project (http://www.data-archive.ac.uk/dext/) and the Open Data Foundation (http://www.opendatafoundation.org). Copyright 2007 University of Essex (http://www.esds.ac.uk). GNU Lesser General Public License 2.1.  Initial source: http://svn.odaf.org/ddidext/org.opendatafoundation.data/ 
 
 This project has been worked on by different Cornell developers over the years.  The previous
-develpers made changes to the following files:
+developers made changes to the following files:
 
-  /src/org/opendatafoundation/data/spss/SPSSFile.java
-  /src/org/opendatafoundation/data/spss/SPSSNumericVariable.java
-  /src/org/opendatafoundation/data/spss/SPSSRecordType1.java
-  /src/org/opendatafoundation/data/spss/SPSSRecordType2.java
-  /src/org/opendatafoundation/data/spss/SPSSRecordType7Subtype3.java
-  /src/org/opendatafoundation/data/spss/SPSSStringVariable.java
-  /src/org/opendatafoundation/data/spss/SPSSUtils.java
-  /src/org/opendatafoundation/data/spss/SPSSVariable.java
-  /src/org/opendatafoundation/data/spss/SPSSVariableCategory.java
-  /src/org/opendatafoundation/data/xml2html.xslt
+-  /src/org/opendatafoundation/data/spss/SPSSFile.java
+-  /src/org/opendatafoundation/data/spss/SPSSNumericVariable.java
+-  /src/org/opendatafoundation/data/spss/SPSSRecordType1.java
+-  /src/org/opendatafoundation/data/spss/SPSSRecordType2.java
+-  /src/org/opendatafoundation/data/spss/SPSSRecordType7Subtype3.java
+-  /src/org/opendatafoundation/data/spss/SPSSStringVariable.java
+-  /src/org/opendatafoundation/data/spss/SPSSUtils.java
+-  /src/org/opendatafoundation/data/spss/SPSSVariable.java
+-  /src/org/opendatafoundation/data/spss/SPSSVariableCategory.java
+-  /src/org/opendatafoundation/data/xml2html.xslt
 
 Detailed file changes are in the LGPL-Changes.txt file.
 
