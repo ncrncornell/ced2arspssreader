@@ -3,6 +3,35 @@
   <groupId>org.opendatafoundation.data</groupId>
   <artifactId>ced2arspssreader</artifactId>
   <version>1.2.1-SNAPSHOT</version>
+
+ <!-- Commented out until code is refactored
+  <name>${project.groupId}:${project.artifactId}</name>
+ -->
+  <description>Reads SPSS (.sav) data sets and creates two csv files.</description>
+  <url>https://github.com/ncrncornell/ced2arspssreader</url>
+
+  <licenses>
+    <license>
+      <name>GNU Lesser General Public License v2.1</name>
+      <url>https://www.gnu.org/licenses/old-licenses/lgpl-2.1.en.html</url>
+    </license>
+  </licenses>
+
+  <developers>
+    <developer>
+      <name>Ced2ar Development</name>
+      <email>ced2ar-devs-l@list.cornell.edu</email>
+      <organization>NSF Census Research Network (NCRN) - Cornell node</organization>
+      <organizationUrl>https://www.ncrn.cornell.edu/projects/</organizationUrl>
+    </developer>
+  </developers>
+
+  <scm>
+    <connection>scm:git:git://github.com/ncrncornell/ced2arspssreader.git</connection>
+    <developerConnection>scm:git:ssh://github.com/ncrncornell/ced2arspssreader.git</developerConnection>
+    <url>https://github.com/ncrncornell/ced2arspssreader/tree/master</url>
+  </scm>
+
   <build>
     <sourceDirectory>src</sourceDirectory>
     <resources>
