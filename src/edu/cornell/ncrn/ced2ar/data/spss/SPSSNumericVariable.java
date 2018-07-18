@@ -1,4 +1,4 @@
-package org.opendatafoundation.data.spss;
+package edu.cornell.ncrn.ced2ar.data.spss;
 
 /*
  * Author(s): Pascal Heus (pheus@opendatafoundation.org)
@@ -35,8 +35,8 @@ import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Locale;
 
-import org.opendatafoundation.data.FileFormatInfo;
-import org.opendatafoundation.data.Utils;
+import edu.cornell.ncrn.ced2ar.data.FileFormatInfo;
+import edu.cornell.ncrn.ced2ar.data.Utils;
 
 /**
  * SPSS numeric variable

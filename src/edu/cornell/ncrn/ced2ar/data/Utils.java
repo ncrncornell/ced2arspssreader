@@ -1,4 +1,4 @@
-package org.opendatafoundation.data;
+package edu.cornell.ncrn.ced2ar.data;
 
 /*
  * Author(s): Pascal Heus (pheus@opendatafoundation.org)

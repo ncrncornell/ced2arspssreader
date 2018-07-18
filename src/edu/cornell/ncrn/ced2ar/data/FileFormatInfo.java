@@ -1,4 +1,4 @@
-package org.opendatafoundation.data.spss;
+package edu.cornell.ncrn.ced2ar.data;
 
 /*
  * Author(s): Pascal Heus (pheus@opendatafoundation.org)
@@ -29,18 +29,47 @@ package org.opendatafoundation.data.spss;
  * 
  */
 
-import java.io.IOException;
-
 /**
- * Abstratc call for metadata Record types
+ * Class to describe file format options for import/export
  * 
  * @author Pascal Heus (pheus@opendatafoundation.org)
  */
-public abstract class SPSSAbstractRecordType {
-	long fileLocation;
+public class FileFormatInfo {
+	/** Export compatibility mode */
+	public static enum Compatibility {NATIVE, GENERIC};
+	/** Export format */
+	public static enum Format {ASCII, SPSS, SAS, STATA};
+	/** Ascii format */
+	public static enum ASCIIFormat {FIXED, DELIMITED, CSV};
 
-	public abstract void read(SPSSFile is) throws IOException, SPSSFileException;
+	public Compatibility compatibility = Compatibility.NATIVE;
+	public Format format = Format.ASCII;
+	public ASCIIFormat asciiFormat = ASCIIFormat.FIXED;
+	public char asciiDelimiter = '\t';
+	public boolean namesOnFirstLine = true;
 
-	public abstract String toString();
+	public FileFormatInfo() {
+	}
 
+	public FileFormatInfo(Format format) {
+		this.format = format;
+	}
+
+	public String toString() {
+		String str;
+		str = format.name();
+		if (format == Format.ASCII) {
+			str += "_" + asciiFormat.toString();
+			/*
+			if(asciiFormat==ASCIIFormat.DELIMITED) {
+					switch(asciiDelimiter) {
+					case '\t': str += ".TAB";
+					default: str += "."+ (int) asciiDelimiter;
+					}
+			}
+			 */
+			if (compatibility != Compatibility.GENERIC) str += "_" + compatibility.toString();
+		}
+		return (str);
+	}
 }

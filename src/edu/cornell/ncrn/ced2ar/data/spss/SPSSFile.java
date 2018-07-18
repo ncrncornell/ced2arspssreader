@@ -1,4 +1,4 @@
-package org.opendatafoundation.data.spss;
+package edu.cornell.ncrn.ced2ar.data.spss;
 
 /*
  * Author(s): Pascal Heus (pheus@opendatafoundation.org)
@@ -52,11 +52,12 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
 
-import org.opendatafoundation.data.FileFormatInfo;
-import org.opendatafoundation.data.Utils;
 import org.w3c.dom.DOMException;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+
+import edu.cornell.ncrn.ced2ar.data.FileFormatInfo;
+import edu.cornell.ncrn.ced2ar.data.Utils;
 
 /**
  * A class to read SPSS files, produce DDI compatible metadata and export the data to ASCII.

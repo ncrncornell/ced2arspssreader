@@ -1,4 +1,4 @@
-package org.opendatafoundation.data.spss;
+package edu.cornell.ncrn.ced2ar.data.spss;
 
 /*
  * Author(s): Pascal Heus (pheus@opendatafoundation.org)
@@ -30,25 +30,19 @@ package org.opendatafoundation.data.spss;
  */
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
- * SPSS Record Type 7 Subtype 4 - Release and machine specific "float" type information.
- * Added in SPSS release 4.0
+ * SPSS Record Type 7 - Generic type 7 record (for unknown subtypes)
  * 
  * @author Pascal Heus (pheus@opendatafoundation.org)
  */
-public class SPSSRecordType7Subtype4 extends SPSSAbstractRecordType {
-	// type 7
+public class SPSSRecordType7 extends SPSSAbstractRecordType {
 	int recordTypeCode;
 	int recordSubtypeCode;
 	int dataElementLength;
 	int numberOfDataElements;
-	// subtype 4
-	double sysmiss; /** system missing value */
-	double highest; /** value for HIGHEST in missing values and recode */
-	double lowest; /** value for LOWEST in missing values and recode */
-
 	List<byte[]> dataElement;
 
 	public void read(SPSSFile is) throws IOException, SPSSFileException {
@@ -57,36 +51,28 @@ public class SPSSRecordType7Subtype4 extends SPSSAbstractRecordType {
 
 		// record type
 		recordTypeCode = is.readSPSSInt();
-		if (recordTypeCode != 7) throw new SPSSFileException("Error reading record type 7 subtype 4: bad record type [" + recordTypeCode + "]. Expecting Record Type 7.");
-
+		if (recordTypeCode != 7) throw new SPSSFileException("Error reading variableRecord: bad record type [" + recordTypeCode + "]. Expecting Record Type 7.");
 		// subtype
 		recordSubtypeCode = is.readSPSSInt();
-		if (recordSubtypeCode != 4) throw new SPSSFileException("Error reading record type 7 subtype 4: bad subrecord type [" + recordSubtypeCode + "]. Expecting Record Subtype 4.");
-
 		// data elements
 		dataElementLength = is.readSPSSInt();
-		if (dataElementLength != 8) throw new SPSSFileException("Error reading record type 7 subtype 3: bad data element length [" + dataElementLength + "]. Expecting 8.");
-
 		numberOfDataElements = is.readSPSSInt();
-		if (numberOfDataElements != 3) throw new SPSSFileException("Error reading record type 7 subtype 3: bad number of data elements [" + dataElementLength + "]. Expecting 3.");
-
-		sysmiss = is.readSPSSDouble();
-		highest = is.readSPSSDouble();
-		lowest = is.readSPSSDouble();
+		dataElement = new ArrayList<byte[]>();
+		byte[] data = new byte[dataElementLength];
+		for (int i = 0; i < numberOfDataElements; i++) {
+			is.read(data);
+			dataElement.add(data);
+		}
 	}
 
 	public String toString() {
 		String str = "";
-		str += "\nRECORD TYPE 7 SUBTYPE 4 - RELEASE AND MACHINE SPECIFIC FLOAT INFORMATION";
+		str += "\nRECORD TYPE 7 - GENERIC";
 		str += "\nLocation        : " + fileLocation;
 		str += "\nRecord Type     : " + recordTypeCode;
 		str += "\nRecord Subtype  : " + recordSubtypeCode;
 		str += "\nData elements   : " + numberOfDataElements;
 		str += "\nElement length  : " + dataElementLength;
-		str += "\nSysmiss         : " + sysmiss;
-		str += "\nHighest         : " + highest;
-		str += "\nLowest          : " + lowest;
 		return (str);
 	}
-
 }

@@ -1,4 +1,4 @@
-package org.opendatafoundation.data.spss;
+package edu.cornell.ncrn.ced2ar.data.spss;
 
 /*
  * Author(s): Pascal Heus (pheus@opendatafoundation.org)
@@ -33,11 +33,12 @@ import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import org.opendatafoundation.data.FileFormatInfo;
-import org.opendatafoundation.data.Utils;
 import org.w3c.dom.DOMException;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+
+import edu.cornell.ncrn.ced2ar.data.FileFormatInfo;
+import edu.cornell.ncrn.ced2ar.data.Utils;
 
 /**
  * Abstract base class for SPSS variable

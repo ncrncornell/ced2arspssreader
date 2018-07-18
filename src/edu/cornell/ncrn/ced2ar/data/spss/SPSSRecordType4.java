@@ -1,4 +1,4 @@
-package org.opendatafoundation.data.spss;
+package edu.cornell.ncrn.ced2ar.data.spss;
 
 /*
  * Author(s): Pascal Heus (pheus@opendatafoundation.org)
@@ -30,20 +30,16 @@ package org.opendatafoundation.data.spss;
  */
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
- * SPSS Record Type 7 - Generic type 7 record (for unknown subtypes)
+ * SPSS Record Type 4 - Value labels variable index
  * 
  * @author Pascal Heus (pheus@opendatafoundation.org)
  */
-public class SPSSRecordType7 extends SPSSAbstractRecordType {
+public class SPSSRecordType4 extends SPSSAbstractRecordType {
 	int recordTypeCode;
-	int recordSubtypeCode;
-	int dataElementLength;
-	int numberOfDataElements;
-	List<byte[]> dataElement;
+	int numberOfVariables;
+	int[] variableIndex;
 
 	public void read(SPSSFile is) throws IOException, SPSSFileException {
 		// position in file
@@ -51,28 +47,24 @@ public class SPSSRecordType7 extends SPSSAbstractRecordType {
 
 		// record type
 		recordTypeCode = is.readSPSSInt();
-		if (recordTypeCode != 7) throw new SPSSFileException("Error reading variableRecord: bad record type [" + recordTypeCode + "]. Expecting Record Type 7.");
-		// subtype
-		recordSubtypeCode = is.readSPSSInt();
-		// data elements
-		dataElementLength = is.readSPSSInt();
-		numberOfDataElements = is.readSPSSInt();
-		dataElement = new ArrayList<byte[]>();
-		byte[] data = new byte[dataElementLength];
-		for (int i = 0; i < numberOfDataElements; i++) {
-			is.read(data);
-			dataElement.add(data);
+		if (recordTypeCode != 4) throw new SPSSFileException("Error reading Variable Index record: bad record type [" + recordTypeCode + "]. Expecting Record Type 4.");
+		// number of variables
+		numberOfVariables = is.readSPSSInt();
+		// variableRecord indexes
+		variableIndex = new int[numberOfVariables];
+		for (int i = 0; i < numberOfVariables; i++) {
+			variableIndex[i] = is.readSPSSInt();
 		}
 	}
 
 	public String toString() {
 		String str = "";
-		str += "\nRECORD TYPE 7 - GENERIC";
+		str += "\nRECORD TYPE 4 - VARIABLE INDEX RECORD FOR VALUE LABELS";
 		str += "\nLocation        : " + fileLocation;
 		str += "\nRecord Type     : " + recordTypeCode;
-		str += "\nRecord Subtype  : " + recordSubtypeCode;
-		str += "\nData elements   : " + numberOfDataElements;
-		str += "\nElement length  : " + dataElementLength;
+		str += "\nNumber of vars  : " + numberOfVariables;
+		str += "\nVar indexes     : ";
+		for (int i = 0; i < numberOfVariables; i++) str += variableIndex[i];
 		return (str);
 	}
 }

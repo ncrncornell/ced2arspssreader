@@ -99,5 +99,5 @@
  * http://www.gnu.org/copyleft/lesser.html
  * </p>
  */
-package org.opendatafoundation.data.spss;
+package edu.cornell.ncrn.ced2ar.data.spss;
 

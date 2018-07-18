@@ -1,4 +1,4 @@
-package org.opendatafoundation.data.spss;
+package edu.cornell.ncrn.ced2ar.data.spss;
 
 /*
  * Author(s): Pascal Heus (pheus@opendatafoundation.org)
@@ -32,8 +32,8 @@ package org.opendatafoundation.data.spss;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.opendatafoundation.data.FileFormatInfo;
-import org.opendatafoundation.data.Utils;
+import edu.cornell.ncrn.ced2ar.data.FileFormatInfo;
+import edu.cornell.ncrn.ced2ar.data.Utils;
 
 /**
  * SPSS string variable
