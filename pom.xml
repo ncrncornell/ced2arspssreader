@@ -2,11 +2,9 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>edu.cornell.ncrn.ced2ar.data</groupId>
   <artifactId>ced2arspssreader</artifactId>
-  <version>1.2.1-SNAPSHOT</version>
+  <version>1.3.0</version>
 
- <!-- Commented out until code is refactored
   <name>${project.groupId}:${project.artifactId}</name>
- -->
   <description>Reads SPSS (.sav) data sets and creates two csv files.</description>
   <url>https://github.com/ncrncornell/ced2arspssreader</url>
 
@@ -47,8 +45,8 @@
         <artifactId>maven-compiler-plugin</artifactId>
         <version>3.5.1</version>
         <configuration>
-          <source>1.7</source>
-          <target>1.7</target>
+          <source>1.8</source>
+          <target>1.8</target>
         </configuration>
       </plugin>
     </plugins>
