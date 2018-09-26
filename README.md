@@ -1,5 +1,11 @@
 # CED2AR SPSS Reader
 
+## Artifacts
+
+### Maven Central
+
+[![rdb](https://maven-badges.herokuapp.com/maven-central/edu.cornell.ncrn.ced2ar.data/ced2arspssreader/badge.svg)](https://maven-badges.herokuapp.com/maven-central/edu.cornell.ncrn.ced2ar.data/ced2arspssreader) 
+
 This project contains java classes that will allow you to read several versions of **SPSS** data sets.
 
 It modifies the code originally written by Pascal Heus (pheus@opendatafoundation.org) for the UK Data Archive Data Exchange Tools project (http://www.data-archive.ac.uk/dext/) and the Open Data Foundation (http://www.opendatafoundation.org). Copyright 2007 University of Essex (http://www.esds.ac.uk). GNU Lesser General Public License 2.1.  Initial source: http://svn.odaf.org/ddidext/org.opendatafoundation.data/ 
@@ -27,7 +33,8 @@ Detailed file changes are in the LGPL-Changes.txt file.
 2. Go to the root directory of the cloned repository.
 3. Use maven 2 to build the project. On the command line, enter the following command
 
-   ```mvn clean install```  
+   ```mvn clean install -Dgpg.skip`.```  
+If publishing, omit the `-Dgpg.skip`.   
 
 
 ### Usage 
